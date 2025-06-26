@@ -1,17 +1,19 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';  // <-- Importá CommonModule
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import 'leaflet-control-geocoder';
 import * as L from 'leaflet';
 
 @Component({
   selector: 'app-crear-restaurante',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],  // <-- agregalo acá
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule], 
   templateUrl: './crear-restaurante.html',
   styleUrls: ['./crear-restaurante.css']
 })
 export class CrearRestauranteComponent implements OnInit, AfterViewInit {
+  constructor(private http: HttpClient) {}
   restauranteForm!: FormGroup;
 
   lat: number = -34.6;
@@ -94,9 +96,15 @@ ngAfterViewInit(): void {
       imageUrl: this.restauranteForm.value.imageUrl,
     };
 
-    console.log('Enviar a backend:', data);
-
-    // Aquí haces el post con axios o el servicio Angular HttpClient
+    this.http.post('http://localhost:3001/restaurant', data)
+      .subscribe({
+        next: (response) => {
+          console.log('Guardado exitoso:', response);
+        },
+        error: (error) => {
+          console.error('Error al guardar:', error);
+        }
+      });
   }
 }
 

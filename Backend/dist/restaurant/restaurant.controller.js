@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestaurantController = void 0;
 const common_1 = require("@nestjs/common");
+const createRestaurant_DTO_1 = require("../DTO/createRestaurant.DTO");
 let RestaurantController = class RestaurantController {
     restaurants = [];
     create(createRestaurantDto) {
@@ -24,24 +25,44 @@ let RestaurantController = class RestaurantController {
         return this.restaurants;
     }
     findOne(id) {
-        return `This action returns restaurant with ID ${id}`;
+        const restaurant = this.restaurants.find((r) => r.id === id);
+        if (!restaurant) {
+            throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+        }
+        return restaurant;
     }
-    update(id) {
-        return `This action updates restaurant with ID ${id}`;
+    update(id, body) {
+        const index = this.restaurants.findIndex((r) => r.id === id);
+        if (index === -1) {
+            throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+        }
+        this.restaurants[index] = body;
+        return `Restaurante con ID ${id} actualizado correctamente.`;
     }
-    partialUpdate(id) {
-        return `This action partially updates restaurant with ID ${id}`;
+    partialUpdate(id, body) {
+        const index = this.restaurants.findIndex((r) => r.id === id);
+        if (index === -1) {
+            throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+        }
+        this.restaurants[index] = { ...this.restaurants[index], ...body };
+        return `Restaurante con ID ${id} actualizado parcialmente.`;
     }
     remove(id) {
-        return `This action removes restaurant with ID ${id}`;
+        const index = this.restaurants.findIndex((r) => r.id === id);
+        if (index === -1) {
+            throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+        }
+        this.restaurants.splice(index, 1);
+        return `Restaurante con ID ${id} eliminado correctamente.`;
     }
 };
 exports.RestaurantController = RestaurantController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe({ whitelist: true })),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [createRestaurant_DTO_1.CreateRestaurantDto]),
     __metadata("design:returntype", String)
 ], RestaurantController.prototype, "create", null);
 __decorate([
@@ -55,27 +76,29 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", String)
+    __metadata("design:returntype", createRestaurant_DTO_1.CreateRestaurantDto)
 ], RestaurantController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number, createRestaurant_DTO_1.CreateRestaurantDto]),
     __metadata("design:returntype", String)
 ], RestaurantController.prototype, "update", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", String)
 ], RestaurantController.prototype, "partialUpdate", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", String)
 ], RestaurantController.prototype, "remove", null);
 exports.RestaurantController = RestaurantController = __decorate([

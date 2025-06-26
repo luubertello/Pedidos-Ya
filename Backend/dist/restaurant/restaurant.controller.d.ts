@@ -1,24 +1,10 @@
-interface Restaurant {
-    id: number;
-    name: string;
-    adress: {
-        street: string;
-        number: number;
-        cityID: number;
-        location: {
-            lat: number;
-            lng: number;
-        };
-    };
-    imageUrl: string;
-}
+import { CreateRestaurantDto } from 'src/DTO/createRestaurant.DTO';
 export declare class RestaurantController {
     private restaurants;
-    create(createRestaurantDto: Restaurant): string;
-    findAll(): Restaurant[];
-    findOne(id: number): string;
-    update(id: string): string;
-    partialUpdate(id: string): string;
-    remove(id: string): string;
+    create(createRestaurantDto: CreateRestaurantDto): string;
+    findAll(): CreateRestaurantDto[];
+    findOne(id: number): CreateRestaurantDto;
+    update(id: number, body: CreateRestaurantDto): string;
+    partialUpdate(id: number, body: Partial<CreateRestaurantDto>): string;
+    remove(id: number): string;
 }
-export {};
