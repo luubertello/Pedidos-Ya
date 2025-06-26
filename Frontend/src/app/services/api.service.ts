@@ -8,9 +8,15 @@ import { config } from '../config/env';
 export class ApiService {
   constructor() {}
 
-  async getData(): Promise<
-    Array<{ name: string; description: string; image: string }>
-  > {
-     return (await axios.get(config.urls.getFood)).data
+  async getRestaurants() {
+    return (await axios.get(config.urls.getRestaurants)).data;
+  }
+
+  async getMenu() {
+    return (await axios.get(config.urls.getMenu)).data;
+  }
+
+  async getMenuByRestaurant(id: string) {
+    return (await axios.get(`${config.urls.getRestaurants}/${id}/menu`)).data;
   }
 }

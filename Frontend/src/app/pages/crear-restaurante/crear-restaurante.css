@@ -209,3 +209,7 @@ input.form-control::placeholder {
 .formulario-restaurante input.form-control::placeholder {
   color: #d6283f99;
 }
+
+.text-danger {
+  color: white !important;
+}

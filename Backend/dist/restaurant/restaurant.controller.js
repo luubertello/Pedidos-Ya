@@ -15,11 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestaurantController = void 0;
 const common_1 = require("@nestjs/common");
 let RestaurantController = class RestaurantController {
+    restaurants = [];
     create(createRestaurantDto) {
-        return `This action adds a new restaurants. Body: ${JSON.stringify(createRestaurantDto)}`;
+        this.restaurants.push(createRestaurantDto);
+        return `Restaurante creado correctamente. Total: ${this.restaurants.length}`;
     }
-    findAll(query) {
-        return `This action returns all restaurants. Query: ${JSON.stringify(query)}`;
+    findAll() {
+        return this.restaurants;
     }
     findOne(id) {
         return `This action returns restaurant with ID ${id}`;
@@ -44,10 +46,9 @@ __decorate([
 ], RestaurantController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", String)
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Array)
 ], RestaurantController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),

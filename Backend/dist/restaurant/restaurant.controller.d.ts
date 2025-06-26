@@ -7,17 +7,15 @@ interface Restaurant {
         cityID: number;
         location: {
             lat: number;
-            ing: number;
+            lng: number;
         };
     };
     imageUrl: string;
 }
 export declare class RestaurantController {
+    private restaurants;
     create(createRestaurantDto: Restaurant): string;
-    findAll(query: {
-        page: number;
-        limit: number;
-    }): string;
+    findAll(): Restaurant[];
     findOne(id: number): string;
     update(id: string): string;
     partialUpdate(id: string): string;

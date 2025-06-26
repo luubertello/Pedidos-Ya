@@ -1,49 +1,75 @@
-import { Controller, Get, Post, Put, Patch, Delete, Body, Param, Query } from '@nestjs/common';
+// src/restaurant/restaurant.controller.ts
 
-interface Restaurant {
-  id: number;
-  name: string;
-  adress: {
-    street: string;
-    number: number;
-    cityID: number;
-    location: {
-        lat: number;
-        ing: number;
-    }
-  }
-  imageUrl: string;
-}
-
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  UsePipes,
+  ValidationPipe,
+  NotFoundException,
+} from '@nestjs/common';
+import { CreateRestaurantDto } from 'src/DTO/createRestaurant.DTO';
 
 @Controller('restaurant')
 export class RestaurantController {
-    @Post()
-  create(@Body() createRestaurantDto: Restaurant): string {
-    return `This action adds a new restaurants. Body: ${JSON.stringify(createRestaurantDto)}`;
+  private restaurants: CreateRestaurantDto[] = [];
+
+  @Post()
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  create(@Body() createRestaurantDto: CreateRestaurantDto): string {
+    this.restaurants.push(createRestaurantDto);
+    return `Restaurante creado correctamente. Total: ${this.restaurants.length}`;
   }
-    @Get()
-  findAll(@Query() query: { page: number, limit: number }): string {
-    return `This action returns all restaurants. Query: ${JSON.stringify(query)}`;
+
+  @Get()
+  findAll(): CreateRestaurantDto[] {
+    return this.restaurants;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): string {
-    return `This action returns restaurant with ID ${id}`;
+  findOne(@Param('id') id: number): CreateRestaurantDto {
+    const restaurant = this.restaurants.find((r) => r.id === id);
+    if (!restaurant) {
+      throw new NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+    }
+    return restaurant;
   }
 
   @Put(':id')
-  update(@Param('id') id: string): string {
-    return `This action updates restaurant with ID ${id}`;
+  update(@Param('id') id: number, @Body() body: CreateRestaurantDto): string {
+    const index = this.restaurants.findIndex((r) => r.id === id);
+    if (index === -1) {
+      throw new NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+    }
+    this.restaurants[index] = body;
+    return `Restaurante con ID ${id} actualizado correctamente.`;
   }
 
   @Patch(':id')
-  partialUpdate(@Param('id') id: string): string {
-    return `This action partially updates restaurant with ID ${id}`;
+  partialUpdate(
+    @Param('id') id: number,
+    @Body() body: Partial<CreateRestaurantDto>,
+  ): string {
+    const index = this.restaurants.findIndex((r) => r.id === id);
+    if (index === -1) {
+      throw new NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+    }
+    this.restaurants[index] = { ...this.restaurants[index], ...body };
+    return `Restaurante con ID ${id} actualizado parcialmente.`;
   }
 
-   @Delete(':id')
-  remove(@Param('id') id: string): string {
-    return `This action removes restaurant with ID ${id}`;
+  @Delete(':id')
+  remove(@Param('id') id: number): string {
+    const index = this.restaurants.findIndex((r) => r.id === id);
+    if (index === -1) {
+      throw new NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+    }
+    this.restaurants.splice(index, 1);
+    return `Restaurante con ID ${id} eliminado correctamente.`;
   }
 }

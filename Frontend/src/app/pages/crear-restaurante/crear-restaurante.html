@@ -1,17 +1,5 @@
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mis Restaurantes</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-
-</head>
-
-
 <header class="Encabezado">
-  <img src="assets/pedidosya-app-000.jpg" alt="Logo" class="logo">
+  <img src="assets/pedidosya-app-000.jpg" alt="Logo" class="logo" />
   <div class="contenedor-titulo-busqueda">
     <h2 class="titulo-restaurantes">Crear nuevo Restaurante</h2>
   </div>
@@ -19,28 +7,121 @@
 
 <main class="busqueda-main">
   <section class="formulario-restaurante tarjeta-restaurante">
-    <form>
+    <form [formGroup]="restauranteForm" (ngSubmit)="guardarRestaurante()">
+
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre del restaurante</label>
-        <input type="text" id="nombre" class="form-control" placeholder="Ej: Pizza Loca">
+        <input
+          id="nombre"
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Ej: Pizza Loca"
+        />
+        <div
+          *ngIf="
+            restauranteForm.get('name')?.invalid &&
+            (restauranteForm.get('name')?.touched || restauranteForm.get('name')?.dirty)
+          "
+          class="text-danger"
+        >
+          Nombre obligatorio (mínimo 3 caracteres).
+        </div>
       </div>
 
       <div class="mb-3">
-        <label for="direccion" class="form-label">Dirección</label>
-        <input type="text" id="direccion" class="form-control" placeholder="Ej: Av Siempre Viva 123">
+        <label for="calle" class="form-label">Calle</label>
+        <input
+          id="calle"
+          type="text"
+          class="form-control"
+          formControlName="street"
+          placeholder="Ej: Av Siempre Viva"
+        />
+        <div
+          *ngIf="
+            restauranteForm.get('street')?.invalid &&
+            (restauranteForm.get('street')?.touched || restauranteForm.get('street')?.dirty)
+          "
+          class="text-danger"
+        >
+          Calle es obligatoria.
+        </div>
       </div>
 
       <div class="mb-3">
-        <label for="imagen" class="form-label">Imagen (URL o archivo)</label>
-        <input type="text" id="imagen" class="form-control" placeholder="https://...">
+        <label for="numero" class="form-label">Número</label>
+        <input
+          id="numero"
+          type="number"
+          class="form-control"
+          formControlName="number"
+          placeholder="Ej: 123"
+        />
+        <div
+          *ngIf="
+            restauranteForm.get('number')?.invalid &&
+            (restauranteForm.get('number')?.touched || restauranteForm.get('number')?.dirty)
+          "
+          class="text-danger"
+        >
+          Número obligatorio y debe ser positivo.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="cityID" class="form-label">ID de Ciudad</label>
+        <input
+          id="cityID"
+          type="number"
+          class="form-control"
+          formControlName="cityID"
+          placeholder="Ej: 10"
+        />
+        <div
+          *ngIf="
+            restauranteForm.get('cityID')?.invalid &&
+            (restauranteForm.get('cityID')?.touched || restauranteForm.get('cityID')?.dirty)
+          "
+          class="text-danger"
+        >
+          ID de Ciudad obligatorio.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="imagen" class="form-label">Imagen (URL)</label>
+        <input
+          id="imagen"
+          type="text"
+          class="form-control"
+          formControlName="imageUrl"
+          placeholder="https://..."
+        />
+        <div
+          *ngIf="
+            restauranteForm.get('imageUrl')?.invalid &&
+            (restauranteForm.get('imageUrl')?.touched || restauranteForm.get('imageUrl')?.dirty)
+          "
+          class="text-danger"
+        >
+          URL de imagen obligatoria.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Ubicación del restaurante</label>
+        <div
+          id="mapa"
+          style="height: 300px; width: 100%; border-radius: 8px; border: 1px solid #ccc"
+        ></div>
       </div>
 
       <div class="d-flex gap-3 mt-4 flex-wrap">
-        <button type="button" class="btn-editar">
+        <button type="button" class="btn btn-secondary">
           <i class="bi bi-plus-circle"></i> Agregar menú
         </button>
-
-        <button type="submit" class="btn-eliminar">
+        <button type="submit" class="btn btn-primary" [disabled]="restauranteForm.invalid">
           Guardar restaurante
         </button>
       </div>
