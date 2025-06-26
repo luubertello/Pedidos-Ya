@@ -1,0 +1,211 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.Encabezado {
+  background-color: #f53042;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  color: white;
+  position: relative;
+}
+
+.logo {
+  width: 90px;
+  height: auto;
+}
+
+.contenedor-buscador {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #fceeee;
+  border-radius: 50px;
+  padding: 13px 30px;
+  max-width: 600px;
+  margin: 0 40px;
+  box-sizing: border-box;
+}
+
+.contenedor-buscador {
+  display: flex;
+  align-items: center;
+  background-color: #fceeee;
+  border-radius: 50px;
+  padding: 10px 20px;
+  width: 250px; 
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.buscador {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.15em;
+  color: #d6283f;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.buscador::placeholder {
+  color: #d6283f;
+  opacity: 1;
+}
+
+.contenedor-informacion {
+  display: flex;
+  align-items: center;
+  gap: 45px;
+  min-width: 220px;
+}
+
+.ubicacion, .usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 15px;
+  color: #fff;
+}
+
+.ubicacion i, .usuario i {
+  font-size: 28px;
+}
+
+
+.busqueda-main {
+  display: block;
+  padding: 32px 3vw;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-nuevo-restaurante {
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  transition: opacity 0.2s;
+}
+
+.btn-nuevo-restaurante i {
+  font-size: 1.4rem;
+}
+
+.btn-nuevo-restaurante:hover {
+  opacity: 0.85;
+}
+
+.botones-local {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.btn-editar, .btn-eliminar {
+  background: white;
+  border: none;
+  border-radius: 50px;
+  padding: 8px 22px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #f53042;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.btn-editar:hover, .btn-eliminar:hover {
+  background: #ffe6e9;
+}
+
+.contenedor-titulo-busqueda {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%); 
+  max-width: none; 
+  margin: 0; 
+  flex: none; 
+  display: flex;
+  justify-content: center;
+}
+
+.titulo-restaurantes {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  white-space: nowrap; 
+}
+
+.formulario-restaurante {
+  background: #fceeee;
+  padding: 32px;
+  border-radius: 24px;
+  max-width: 700px;
+  margin: auto;
+  box-shadow: 0 4px 20px #0001;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #d6283f;
+  margin-bottom: 6px;
+}
+
+input.form-control {
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: 1px solid #f53042;
+  color: #d6283f;
+}
+
+input.form-control::placeholder {
+  color: #f53042aa;
+}
+
+.formulario-restaurante {
+  max-width: 700px;
+  margin: auto;
+  background: #f53042;
+  padding: 40px;
+  border-radius: 28px;
+  color: white;
+  box-shadow: 0 4px 16px rgba(219, 31, 54, 0.12);
+}
+
+.formulario-restaurante .form-label {
+  font-weight: bold;
+  color: white;
+  margin-bottom: 6px;
+}
+
+.formulario-restaurante input.form-control {
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  background: #fff;
+  color: #d6283f;
+  box-shadow: 0 2px 6px #0001;
+}
+
+.formulario-restaurante input.form-control::placeholder {
+  color: #d6283f99;
+}

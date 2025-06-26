@@ -1,0 +1,256 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.Encabezado {
+  background-color: #f53042;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  color: white;
+}
+
+.logo {
+  width: 90px;
+  height: auto;
+}
+
+.contenedor-buscador {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #fceeee;
+  border-radius: 50px;
+  padding: 13px 30px;
+  max-width: 800px;
+  margin: 0 40px;
+  box-sizing: border-box;
+}
+
+.contenedor-buscador i {
+  color: #d6283f;
+  font-size: 1.3em;
+  margin-right: 10px;
+}
+
+.buscador {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.15em;
+  color: #d6283f;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.buscador::placeholder {
+  color: #d6283f;
+  opacity: 1;
+}
+.contenedor-informacion {
+  display: flex;
+  align-items: center;
+  gap: 45px;
+  min-width: 220px;
+}
+
+.ubicacion, .usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 15px;
+  color: #fff;
+}
+
+.ubicacion i, .usuario i {
+  font-size: 28px;
+}
+
+.busqueda-main {
+  display: block;
+  padding: 32px 3vw;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.menu-lateral {
+  background: #fff;
+  border-radius: 22px;
+  padding: 26px 22px 26px 18px;
+  min-width: 220px;
+  max-width: 260px;
+  box-shadow: 0 2px 16px #0001;
+  font-size: 1.08rem;
+  margin-top: 6px;
+  height: fit-content;
+}
+
+.menu-section {
+  margin-bottom: 22px;
+}
+.menu-title {
+  font-weight: bold;
+  color: #db1f36;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.flecha {
+  font-size: 1em;
+}
+.menu-lateral ul {
+  list-style: none;
+  margin: 0 0 0 6px;
+  padding: 0;
+}
+.menu-lateral li {
+  color: #db1f36;
+  margin: 7px 0;
+  cursor: pointer;
+  padding-left: 6px;
+  transition: font-weight 0.13s;
+}
+.menu-lateral li:hover {
+  font-weight: bold;
+}
+
+.lista-locales {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.local-tarjeta {
+  width: 100%;
+  background: #f53042;
+  color: #fff;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 20px 32px;
+  min-height: 95px;
+  box-shadow: 0 4px 16px rgba(219, 31, 54, 0.08);
+}
+.local-tarjeta img {
+  width: 74px;
+  height: 74px;
+  border-radius: 16px;
+  object-fit: contain;
+  background: #fff3;
+}
+.local-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.local-nombre {
+  font-weight: bold;
+  font-size: 1.20rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 1px;
+}
+.local-direccion {
+  font-size: 1.03rem;
+  opacity: 0.92;
+  margin-top: 1px;
+}
+
+.local-puntaje {
+  font-size: 1.28rem;
+  font-weight: bold;
+  color: #ffe13e;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 55px;
+  justify-content: flex-end;
+  margin-left: 12px;
+}
+
+.estrella {
+  color: #ffe13e;
+  font-size: 1.22em;
+  margin-left: 2px;
+}
+
+@media (max-width: 1100px) {
+  .busqueda-main { flex-direction: column; padding: 15px 1vw;}
+  .menu-lateral { margin-bottom: 15px; min-width: 0; width: 100%;}
+  .lista-locales { min-width: 0; max-width: 100%;}
+  .local-tarjeta { max-width: 100%;}
+}
+
+.btn-nuevo-restaurante {
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  transition: opacity 0.2s;
+}
+
+.btn-nuevo-restaurante i {
+  font-size: 1.4rem;
+}
+
+.btn-nuevo-restaurante:hover {
+  opacity: 0.85;
+}
+
+.botones-local {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.btn-editar, .btn-eliminar {
+  background: white;
+  border: none;
+  border-radius: 50px;
+  padding: 8px 22px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #f53042;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.btn-editar:hover, .btn-eliminar:hover {
+  background: #ffe6e9;
+}
+
+.contenedor-titulo-busqueda {
+  display: flex;
+  align-items: center; 
+  gap: 18px; 
+  flex: 1;
+  max-width: 600px;
+  margin: 0 40px;
+}
+
+.titulo-restaurantes {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  white-space: nowrap; 
+  left: 0px;
+}

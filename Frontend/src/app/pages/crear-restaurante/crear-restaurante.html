@@ -1,0 +1,49 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mis Restaurantes</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+</head>
+
+
+<header class="Encabezado">
+  <img src="assets/pedidosya-app-000.jpg" alt="Logo" class="logo">
+  <div class="contenedor-titulo-busqueda">
+    <h2 class="titulo-restaurantes">Crear nuevo Restaurante</h2>
+  </div>
+</header>
+
+<main class="busqueda-main">
+  <section class="formulario-restaurante tarjeta-restaurante">
+    <form>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre del restaurante</label>
+        <input type="text" id="nombre" class="form-control" placeholder="Ej: Pizza Loca">
+      </div>
+
+      <div class="mb-3">
+        <label for="direccion" class="form-label">Dirección</label>
+        <input type="text" id="direccion" class="form-control" placeholder="Ej: Av Siempre Viva 123">
+      </div>
+
+      <div class="mb-3">
+        <label for="imagen" class="form-label">Imagen (URL o archivo)</label>
+        <input type="text" id="imagen" class="form-control" placeholder="https://...">
+      </div>
+
+      <div class="d-flex gap-3 mt-4 flex-wrap">
+        <button type="button" class="btn-editar">
+          <i class="bi bi-plus-circle"></i> Agregar menú
+        </button>
+
+        <button type="submit" class="btn-eliminar">
+          Guardar restaurante
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

@@ -1,0 +1,85 @@
+
+.login-contenedor {
+  background-image: url('/assets/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+
+.login-box {
+  background: rgba(255, 0, 0, 0.69);
+  border-radius: 32px !important;
+  box-shadow: 0 8px 40px 0 rgba(0,0,0,0.21);
+  width: 900px;
+  max-width: 97vw;
+  padding: 45px 34px 34px 34px;
+}
+
+
+.login-box h5 {
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  margin: 20px 0;
+}
+
+
+input.form-control {
+  height: 50px;
+  font-size: 16px;
+}
+
+
+.btn-lg {
+  font-size: 1.2rem;
+  padding: 16px 40px;
+  border-radius: 2rem;
+  font-weight: 700;
+  background: #ca091c; 
+  color: #fff;
+  border: none;
+  transition: all 0.15s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+.btn-lg:hover, .btn-lg:focus {
+  background: #b10000;
+  color: #fff;
+  outline: none;
+}
+
+
+a.text-white {
+  opacity: 0.92;
+  font-size: 1.08rem;
+}
+
+a.text-white:hover {
+  opacity: 1;
+  text-shadow: 0 1px 10px #d50000;
+}
+
+
+@media (max-width: 600px) {
+  .login-box {
+    padding: 24px 10px !important;
+    width: 98vw !important;
+    min-width: unset;
+  }
+
+  .btn-lg {
+    font-size: 1rem;
+    padding: 12px 10px;
+    min-width: 110px;
+  }
+
+  h5 {
+    font-size: 1.2rem;
+  }
+}
