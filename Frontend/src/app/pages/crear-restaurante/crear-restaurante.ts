@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import 'leaflet-control-geocoder';
 import * as L from 'leaflet';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-restaurante',
@@ -13,8 +14,9 @@ import * as L from 'leaflet';
   styleUrls: ['./crear-restaurante.css']
 })
 export class CrearRestauranteComponent implements OnInit, AfterViewInit {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
   restauranteForm!: FormGroup;
+  restauranteCreado: boolean = false;
 
   lat: number = -34.6;
   lng: number = -58.4;
@@ -105,6 +107,11 @@ ngAfterViewInit(): void {
           console.error('Error al guardar:', error);
         }
       });
+      this.restauranteCreado = true;
   }
+
+    irAMenu() {
+    this.router.navigate(['/editar-menu']);
+}
 }
 
