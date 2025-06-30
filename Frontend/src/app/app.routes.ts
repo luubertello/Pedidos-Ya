@@ -7,7 +7,7 @@ import { SeleccComponent} from './pages/selecc/selecc.component'
 import { RestaurantComponent } from './pages/restaurant/restaurant.component';
 import { MisRestaurantes } from './pages/mis-restaurantes/mis-restaurantes';
 import { CrearRestauranteComponent } from './pages/crear-restaurante/crear-restaurante';
-import { loginDueñoComponent } from './pages/LoginDueño/loginDueño';
+import { LoginDueñoComponent } from './pages/LoginDueño/loginDueño';
 import { EditarMenu } from './pages/editar-menu/editar-menu';
 
 export const routes: Routes = [
@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'restaurantes', component: RestaurantComponent },
   { path: 'mis-restaurantes', component: MisRestaurantes },
   { path: 'crear-restaurante', component: CrearRestauranteComponent },
-  { path: 'login-dueño', component: loginDueñoComponent },
+  { path: 'login-dueño', component: LoginDueñoComponent },
   { path: 'editar-menu', component: EditarMenu },
   { path: '**', redirectTo: '' }
 ];

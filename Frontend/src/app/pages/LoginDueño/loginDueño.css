@@ -83,3 +83,7 @@ a.text-white:hover {
     font-size: 1.2rem;
   }
 }
+
+.text-danger {
+  color: white !important;
+}
