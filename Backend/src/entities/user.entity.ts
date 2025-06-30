@@ -2,7 +2,7 @@ import { UserI } from '../interfaces/user.interface';
 import { BaseEntity, Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { RoleEntity } from './role.entity';
 
-@Entity('users')
+@Entity('user')
 export class UserEntity extends BaseEntity implements UserI {
   @PrimaryGeneratedColumn()
   id: number;

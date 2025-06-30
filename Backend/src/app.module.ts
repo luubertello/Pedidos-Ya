@@ -7,7 +7,6 @@ import { MenuController } from './menu/menu.controller';
 import { Adress } from './entities/adress.entity';
 import { PermissionEntity } from './entities/permission.entity';
 import { RoleEntity } from './entities/role.entity';
-import { User } from './users/user.entity';
 import { Location } from './entities/location.entity';
 import { PermissionsController } from './permission/permission.controller';
 import { RolesController } from './role/role.controller';
@@ -24,12 +23,13 @@ import { UserEntity } from './entities/user.entity';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
+      port: 5433, // el puerto correcto
       username: 'postgres',
       password: '1234',
-      database: 'restaurant',
-      entities: [Restaurant, Menu, Adress, Location, PermissionEntity, Location, RoleEntity, UserEntity],
+      database: 'pedidosya',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'], // carga automática de entidades
       synchronize: true,
+      logging: true,
     }),
     TypeOrmModule.forFeature([Restaurant, Menu, Adress, Location, PermissionEntity, RoleEntity, UserEntity]),
   ],

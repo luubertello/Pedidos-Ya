@@ -15,11 +15,11 @@ import { Request } from 'express';
 import { AuthGuard } from '../middlewares/auth.middleware';
 import { RequestWithUser } from 'src/interfaces/request-user';
 
-@Controller('')
+@Controller('users')
 export class UsersController {
   constructor(private service: UsersService) {}
 
-  @Get('users')
+  @Get()
   async getUsers(
     @Query('page') page = 1,
     @Query('quantity') quantity = 10,
@@ -29,19 +29,19 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('me')
-  me(@Req() req: RequestWithUser) {
+  getProfile(@Req() req: RequestWithUser) {
     return {
       email: req.user!.email,
     };
   }
 
   @Post('login')
-  login(@Body() body: LoginDTO) {
+  loginUser(@Body() body: LoginDTO) {
     return this.service.login(body);
   }
 
   @Post('register')
-  register(@Body() body: RegisterDTO) {
+  registerUser(@Body() body: RegisterDTO) {
     return this.service.register(body);
   }
 

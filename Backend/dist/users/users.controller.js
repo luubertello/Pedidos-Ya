@@ -26,15 +26,15 @@ let UsersController = class UsersController {
     async getUsers(page = 1, quantity = 10) {
         return this.service.getUsers(page, quantity);
     }
-    me(req) {
+    getProfile(req) {
         return {
             email: req.user.email,
         };
     }
-    login(body) {
+    loginUser(body) {
         return this.service.login(body);
     }
-    register(body) {
+    registerUser(body) {
         return this.service.register(body);
     }
     canDo(request, permission) {
@@ -46,7 +46,7 @@ let UsersController = class UsersController {
 };
 exports.UsersController = UsersController;
 __decorate([
-    (0, common_1.Get)('users'),
+    (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('page')),
     __param(1, (0, common_1.Query)('quantity')),
     __metadata("design:type", Function),
@@ -60,21 +60,21 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "me", null);
+], UsersController.prototype, "getProfile", null);
 __decorate([
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [login_dto_1.LoginDTO]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "login", null);
+], UsersController.prototype, "loginUser", null);
 __decorate([
     (0, common_1.Post)('register'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [register_dto_1.RegisterDTO]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "register", null);
+], UsersController.prototype, "registerUser", null);
 __decorate([
     (0, common_1.UseGuards)(auth_middleware_1.AuthGuard),
     (0, common_1.Get)('can-do/:permission'),
@@ -92,7 +92,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "refreshToken", null);
 exports.UsersController = UsersController = __decorate([
-    (0, common_1.Controller)(''),
+    (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map

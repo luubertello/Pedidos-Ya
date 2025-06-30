@@ -1,11 +1,4 @@
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title> Iniciar Sesion </title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-</head>
 
 <div class="login-contenedor d-flex justify-content-center align-items-center vh-100">
   <div class="login-box bg-danger bg-opacity-75 rounded-4 p-5 text-center shadow">
@@ -17,14 +10,14 @@
         <input
           type="text"
           class="form-control my-3 rounded-pill text-center"
-          placeholder="Usuario"
-          formControlName="usuario"
+          placeholder="Email"
+          formControlName="email"
         />
         <div
-          *ngIf="loginClienteForm.get('usuario')?.invalid && (loginClienteForm.get('usuario')?.touched || loginClienteForm.get('usuario')?.dirty)"
+          *ngIf="loginClienteForm.get('email')?.invalid && (loginClienteForm.get('email')?.touched || loginClienteForm.get('email')?.dirty)"
           class="text-danger text-center"
         >
-          Usuario obligatorio.
+          Email obligatorio.
         </div>
       </div>
 
@@ -33,10 +26,10 @@
           type="password"
           class="form-control my-3 rounded-pill text-center"
           placeholder="Contraseña"
-          formControlName="contrasena"
+          formControlName="password"
         />
         <div
-          *ngIf="loginClienteForm.get('contrasena')?.invalid && (loginClienteForm.get('contrasena')?.touched || loginClienteForm.get('contrasena')?.dirty)"
+          *ngIf="loginClienteForm.get('password')?.invalid && (loginClienteForm.get('password')?.touched || loginClienteForm.get('password')?.dirty)"
           class="text-danger text-center"
         >
           Contraseña obligatoria.
@@ -46,6 +39,9 @@
       <button type="submit" class="btn btn-danger btn-lg w-100 rounded-pill fw-bold" [disabled]="loginClienteForm.invalid">
         CONTINUAR
       </button>
+      <div *ngIf="mensajeError" class="error-message text-danger">
+        {{ mensajeError }}
+      </div>
     </form>
 
     <a href="#" class="text-white d-block mt-3 text-decoration-none fw-semibold">¿Olvidaste la contraseña?</a>

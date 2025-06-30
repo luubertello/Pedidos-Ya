@@ -12,17 +12,17 @@ export declare class UsersController {
         page: number;
         quantity: number;
     }>;
-    me(req: RequestWithUser): {
+    getProfile(req: RequestWithUser): {
         email: string;
     };
-    login(body: LoginDTO): Promise<{
+    loginUser(body: LoginDTO): Promise<{
         accessToken: string;
         refreshToken: string;
     }>;
-    register(body: RegisterDTO): Promise<{
+    registerUser(body: RegisterDTO): Promise<{
         status: string;
     }>;
-    canDo(request: RequestWithUser, permission: string): boolean;
+    canDo(request: RequestWithUser, permission: string): Promise<boolean>;
     refreshToken(request: Request): Promise<{
         accessToken: string;
         refreshToken: string;
