@@ -1,10 +1,8 @@
-import { Location } from "./location.entity";
-import { Restaurant } from "./restaurant.entity";
-export declare class Adress {
+export declare class Address {
     id: number;
     street: string;
     number: number;
     cityID: number;
-    location: Location;
-    restaurant: Restaurant;
+    lat: number;
+    lng: number;
 }

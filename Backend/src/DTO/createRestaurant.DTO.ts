@@ -1,12 +1,4 @@
-// src/restaurant/dto/create-restaurant.dto.ts
-
-import {
-  IsString,
-  IsNumber,
-  ValidateNested,
-  IsObject,
-  IsUrl,
-} from 'class-validator';
+import { IsString, IsNumber, ValidateNested, IsUrl, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class LocationDto {
@@ -17,7 +9,7 @@ class LocationDto {
   lng: number;
 }
 
-class AdressDto {
+class AddressDto {
   @IsString()
   street: string;
 
@@ -33,15 +25,13 @@ class AdressDto {
 }
 
 export class CreateRestaurantDto {
-  @IsNumber()
-  id: number;
 
   @IsString()
   name: string;
 
   @ValidateNested()
-  @Type(() => AdressDto)
-  address: AdressDto;
+  @Type(() => AddressDto)
+  address: AddressDto;
 
   @IsUrl()
   imageUrl: string;

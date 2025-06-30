@@ -74,15 +74,13 @@ ngAfterViewInit(): void {
   });
 }
 
-
   guardarRestaurante() {
     if (this.restauranteForm.invalid) {
       this.restauranteForm.markAllAsTouched();
       return;
     }
-
+    
     const data = {
-      id: Math.floor(Math.random() * 10000),
       name: this.restauranteForm.value.name,
       address: {
         street: this.restauranteForm.value.street,
@@ -95,6 +93,8 @@ ngAfterViewInit(): void {
       },
       imageUrl: this.restauranteForm.value.imageUrl,
     };
+
+    console.log('Datos enviados:', data);
 
     this.http.post('http://localhost:3001/restaurant', data)
       .subscribe({

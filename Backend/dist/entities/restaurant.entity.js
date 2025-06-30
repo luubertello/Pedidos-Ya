@@ -16,8 +16,8 @@ const menu_entity_1 = require("./menu.entity");
 let Restaurant = class Restaurant {
     id;
     name;
-    adress;
-    image;
+    address;
+    imageUrl;
     menus;
 };
 exports.Restaurant = Restaurant;
@@ -30,13 +30,14 @@ __decorate([
     __metadata("design:type", String)
 ], Restaurant.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => adress_entity_1.Adress),
-    __metadata("design:type", adress_entity_1.Adress)
-], Restaurant.prototype, "adress", void 0);
+    (0, typeorm_1.OneToOne)(() => adress_entity_1.Address, { cascade: true, eager: true }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", adress_entity_1.Address)
+], Restaurant.prototype, "address", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Restaurant.prototype, "image", void 0);
+], Restaurant.prototype, "imageUrl", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => menu_entity_1.Menu, (menu) => menu.restaurant),
     __metadata("design:type", Array)

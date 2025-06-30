@@ -1,9 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
-import { Location } from "./location.entity";
-import { Restaurant } from "./restaurant.entity";
+// adress.entity.ts
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Adress {
+export class Address {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -16,10 +15,9 @@ export class Adress {
   @Column()
   cityID: number;
 
-  @OneToOne(() => Location)
-  @JoinColumn()
-  location: Location;
+  @Column('float')
+  lat: number;
 
-  @OneToOne(() => Restaurant, restaurant => restaurant.adress)
-  restaurant: Restaurant;
+  @Column('float')
+  lng: number;
 }

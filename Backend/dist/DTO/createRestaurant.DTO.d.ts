@@ -2,16 +2,15 @@ declare class LocationDto {
     lat: number;
     lng: number;
 }
-declare class AdressDto {
+declare class AddressDto {
     street: string;
     number: number;
     cityID: number;
     location: LocationDto;
 }
 export declare class CreateRestaurantDto {
-    id: number;
     name: string;
-    address: AdressDto;
+    address: AddressDto;
     imageUrl: string;
 }
 export {};

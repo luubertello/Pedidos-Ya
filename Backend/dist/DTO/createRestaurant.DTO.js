@@ -24,7 +24,7 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], LocationDto.prototype, "lng", void 0);
-class AdressDto {
+class AddressDto {
     street;
     number;
     cityID;
@@ -33,39 +33,34 @@ class AdressDto {
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], AdressDto.prototype, "street", void 0);
+], AddressDto.prototype, "street", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], AdressDto.prototype, "number", void 0);
+], AddressDto.prototype, "number", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], AdressDto.prototype, "cityID", void 0);
+], AddressDto.prototype, "cityID", void 0);
 __decorate([
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => LocationDto),
     __metadata("design:type", LocationDto)
-], AdressDto.prototype, "location", void 0);
+], AddressDto.prototype, "location", void 0);
 class CreateRestaurantDto {
-    id;
     name;
     address;
     imageUrl;
 }
 exports.CreateRestaurantDto = CreateRestaurantDto;
 __decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], CreateRestaurantDto.prototype, "id", void 0);
-__decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateRestaurantDto.prototype, "name", void 0);
 __decorate([
     (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => AdressDto),
-    __metadata("design:type", AdressDto)
+    (0, class_transformer_1.Type)(() => AddressDto),
+    __metadata("design:type", AddressDto)
 ], CreateRestaurantDto.prototype, "address", void 0);
 __decorate([
     (0, class_validator_1.IsUrl)(),

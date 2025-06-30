@@ -9,45 +9,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Adress = void 0;
+exports.Address = void 0;
 const typeorm_1 = require("typeorm");
-const location_entity_1 = require("./location.entity");
-const restaurant_entity_1 = require("./restaurant.entity");
-let Adress = class Adress {
+let Address = class Address {
     id;
     street;
     number;
     cityID;
-    location;
-    restaurant;
+    lat;
+    lng;
 };
-exports.Adress = Adress;
+exports.Address = Address;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Adress.prototype, "id", void 0);
+], Address.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Adress.prototype, "street", void 0);
+], Address.prototype, "street", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Adress.prototype, "number", void 0);
+], Address.prototype, "number", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Adress.prototype, "cityID", void 0);
+], Address.prototype, "cityID", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => location_entity_1.Location),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", location_entity_1.Location)
-], Adress.prototype, "location", void 0);
+    (0, typeorm_1.Column)('float'),
+    __metadata("design:type", Number)
+], Address.prototype, "lat", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => restaurant_entity_1.Restaurant, restaurant => restaurant.adress),
-    __metadata("design:type", restaurant_entity_1.Restaurant)
-], Adress.prototype, "restaurant", void 0);
-exports.Adress = Adress = __decorate([
+    (0, typeorm_1.Column)('float'),
+    __metadata("design:type", Number)
+], Address.prototype, "lng", void 0);
+exports.Address = Address = __decorate([
     (0, typeorm_1.Entity)()
-], Adress);
+], Address);
 //# sourceMappingURL=adress.entity.js.map
