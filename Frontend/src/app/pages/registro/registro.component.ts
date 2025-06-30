@@ -23,22 +23,30 @@ export class RegistroComponent implements OnInit {
       usuario: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      terminos: new FormControl(false, Validators.requiredTrue)
+      terminos: new FormControl(false, Validators.requiredTrue),
+      roleId: new FormControl(null, Validators.required),
     });
   }
 
   onSubmit() {
     if (this.registroForm.invalid) return;
-    const { email, password } = this.registroForm.value;
 
-    this.authService.register({ email, password }).subscribe({
+    const { nombre, usuario, email, password, roleId } = this.registroForm.value;
+
+    this.authService.register({ nombre, usuario, email, password, roleId }).subscribe({
       next: () => {
         this.error = null;
-        this.router.navigate(['/login']);
+        this.router.navigate(['/landing']);
       },
       error: (err) => {
-        this.error = 'Error al registrar usuario';
-        console.error(err);
+        console.error('Error al registrar:', err);
+        if (err.status === 409) {
+          this.error = 'Este email ya está registrado';
+        } else if (err.status === 400) {
+          this.error = 'Datos inválidos. Verifica los campos.';
+        } else {
+          this.error = 'Error en el servidor. Intente más tarde.';
+        }
       }
     });
   }

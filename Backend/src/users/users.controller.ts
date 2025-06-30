@@ -46,14 +46,6 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Get('can-do/:permission')
-  canDo(
-    @Req() request: RequestWithUser,
-    @Param('permission') permission: string,
-  ) {
-    return this.service.canDo(request.user!, permission);
-  }
-
   @Get('refresh-token')
   refreshToken(@Req() request: Request) {
     return this.service.refreshToken(

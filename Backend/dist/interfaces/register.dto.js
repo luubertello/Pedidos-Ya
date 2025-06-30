@@ -4,6 +4,7 @@ exports.RegisterDTO = void 0;
 class RegisterDTO {
     email;
     password;
+    roleId;
 }
 exports.RegisterDTO = RegisterDTO;
 //# sourceMappingURL=register.dto.js.map

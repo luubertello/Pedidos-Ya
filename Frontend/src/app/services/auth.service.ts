@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(data: { email: string; password: string }): Observable<{ accessToken: string; refreshToken: string }> {
-    return this.http.post<{ accessToken: string; refreshToken: string }>(`${this.baseUrl}/login`, data).pipe(
+    return this.http.post<{ accessToken: string; refreshToken: string }>(`${this.baseUrl}/users/login`, data).pipe(
       tap((res) => {
         localStorage.setItem('accessToken', res.accessToken);
         localStorage.setItem('refreshToken', res.refreshToken);
@@ -17,8 +17,14 @@ export class AuthService {
     );
   }
 
-    register(data: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, data);
+  register(data: {
+    nombre: string;
+    usuario: string;
+    email: string;
+    password: string;
+    roleId: number;
+  }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/users/register`, data);
   }
 
   logout(): void {

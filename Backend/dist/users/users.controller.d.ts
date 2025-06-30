@@ -22,7 +22,6 @@ export declare class UsersController {
     registerUser(body: RegisterDTO): Promise<{
         status: string;
     }>;
-    canDo(request: RequestWithUser, permission: string): Promise<boolean>;
     refreshToken(request: Request): Promise<{
         accessToken: string;
         refreshToken: string;

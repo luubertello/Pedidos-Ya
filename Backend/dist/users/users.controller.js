@@ -37,9 +37,6 @@ let UsersController = class UsersController {
     registerUser(body) {
         return this.service.register(body);
     }
-    canDo(request, permission) {
-        return this.service.canDo(request.user, permission);
-    }
     refreshToken(request) {
         return this.service.refreshToken(request.headers['refresh-token']);
     }
@@ -77,14 +74,6 @@ __decorate([
 ], UsersController.prototype, "registerUser", null);
 __decorate([
     (0, common_1.UseGuards)(auth_middleware_1.AuthGuard),
-    (0, common_1.Get)('can-do/:permission'),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Param)('permission')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "canDo", null);
-__decorate([
     (0, common_1.Get)('refresh-token'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),

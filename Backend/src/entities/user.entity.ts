@@ -13,9 +13,6 @@ export class UserEntity extends BaseEntity implements UserI {
 
   @Column()
   password: string;
-
-  @Column("text", { array: true })
-  permissionCodes: string[];
   
   @ManyToOne(() => RoleEntity, role => role.users)
   role: RoleEntity;

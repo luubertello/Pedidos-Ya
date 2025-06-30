@@ -75,6 +75,21 @@
     </div>
   </div>
 
+    <div class="mb-3">
+  <label class="form-label text-white">Selecciona tu rol</label>
+    <select formControlName="roleId" class="form-select mb-3">
+      <option [value]="1">Cliente</option>
+      <option [value]="2">Dueño</option>
+    </select>
+    <div *ngIf="registroForm.get('roleId')?.invalid && (registroForm.get('roleId')?.touched || registroForm.get('roleId')?.dirty)" class="text-danger">
+      Debe seleccionar un rol
+    </div>
+</div>
+
+    <div *ngIf="error" class="error-message text-danger">
+    {{ error }}
+  </div>
+
   <button type="submit" class="btn-registro w-100" [disabled]="registroForm.invalid">
     CONTINUAR
   </button>

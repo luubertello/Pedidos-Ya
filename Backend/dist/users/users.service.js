@@ -29,14 +29,27 @@ let UsersService = class UsersService {
     }
     async register(body) {
         try {
-            const user = this.repository.create(body);
-            user.password = (0, bcrypt_1.hashSync)(user.password, 10);
+            const existingEmail = await this.repository.findOne({ where: { email: body.email } });
+            if (existingEmail) {
+                throw new common_1.HttpException('El email ya está registrado', 409);
+            }
+            const existingUser = await this.repository.findOne({ where: { email: body.email } });
+            if (existingUser) {
+                throw new common_1.HttpException('El email ya está en uso', 409);
+            }
+            const user = this.repository.create({
+                email: body.email,
+                password: (0, bcrypt_1.hashSync)(body.password, 10),
+                role: { id: body.roleId },
+            });
             await this.repository.save(user);
             return { status: 'created' };
         }
         catch (error) {
             console.error('Error en register:', error);
-            throw new common_1.HttpException('Error de creación', 500);
+            throw error instanceof common_1.HttpException
+                ? error
+                : new common_1.HttpException('Error de creación', 500);
         }
     }
     async login(body) {
@@ -59,13 +72,6 @@ let UsersService = class UsersService {
             throw new common_1.UnauthorizedException('Usuario no encontrado');
         }
         return user;
-    }
-    async canDo(user, permission) {
-        const hasPermission = user.permissionCodes?.includes(permission);
-        if (!hasPermission) {
-            throw new common_1.UnauthorizedException('No tiene permiso para realizar esta acción');
-        }
-        return true;
     }
     async refreshToken(refreshToken) {
         try {

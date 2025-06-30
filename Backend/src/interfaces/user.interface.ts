@@ -5,5 +5,4 @@ export interface UserI {
   email: string;
   password: string;
   role: RoleEntity
-  permissionCodes: string[];
 }

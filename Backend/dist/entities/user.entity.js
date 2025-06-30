@@ -16,7 +16,6 @@ let UserEntity = class UserEntity extends typeorm_1.BaseEntity {
     id;
     email;
     password;
-    permissionCodes;
     role;
 };
 exports.UserEntity = UserEntity;
@@ -34,14 +33,10 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)("text", { array: true }),
-    __metadata("design:type", Array)
-], UserEntity.prototype, "permissionCodes", void 0);
-__decorate([
     (0, typeorm_1.ManyToOne)(() => role_entity_1.RoleEntity, role => role.users),
     __metadata("design:type", role_entity_1.RoleEntity)
 ], UserEntity.prototype, "role", void 0);
 exports.UserEntity = UserEntity = __decorate([
-    (0, typeorm_1.Entity)('')
+    (0, typeorm_1.Entity)('user')
 ], UserEntity);
 //# sourceMappingURL=user.entity.js.map

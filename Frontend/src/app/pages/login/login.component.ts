@@ -27,9 +27,10 @@ export class LoginComponent implements OnInit {
   iniciarSesion() {
     if (this.loginClienteForm.invalid) return;
 
-    this.authService.login(this.loginClienteForm.value).subscribe({
+  this.authService.login(this.loginClienteForm.value).subscribe({
     next: (response) => {
       this.mensajeError = '';
+      this.router.navigate(['/inicio']); // o la ruta que quieras después del login
     },
     error: (error) => {
       if (error.status === 401) {
