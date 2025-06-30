@@ -12,7 +12,7 @@ import { EditarMenu } from './pages/editar-menu/editar-menu';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'iniciar-sesion', component: LoginComponent },
+  { path: 'login-cliente', component: LoginComponent },
   { path: 'registro', component: RegistroComponent }, 
   { path: 'inicio', component: HomeComponent },
   { path: 'selecc', component: SeleccComponent },

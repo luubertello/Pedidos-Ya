@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-landing',
@@ -6,10 +8,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent {
+    constructor(private router: Router) {}
   pantalla: 'landing' | 'login-cliente' | 'login-duenio' | 'registro' = 'landing';
 
-  mostrarPantalla(p: 'landing' | 'login-cliente' | 'login-duenio' | 'registro') {
-    this.pantalla = p;
+  LoginCliente() {
+    this.router.navigate(['/login-cliente']);
+  }
+
+    LoginDueno() {
+    this.router.navigate(['/login-dueño']);
+  }
+
+  Registro() {
+    this.router.navigate(['/registro'])
   }
 }
-

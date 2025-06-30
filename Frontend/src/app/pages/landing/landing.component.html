@@ -3,18 +3,19 @@
     <h1 class="fw-bold text-white mb-2">Bienvenido a PedidosYa</h1>
     <p class="text-white mb-4">Elegí cómo querés ingresar</p>
     <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
-      <button routerLink="/login" class="btn btn-light btn-lg fw-bold px-5"
-              (click)="mostrarPantalla('login-cliente')">
+      <button class="btn btn-light btn-lg fw-bold px-5"
+              (click)="LoginCliente()">
         CLIENTE
       </button>
       <span class="fw-bold text-white">o</span>
-      <button routerLink="/login" class="btn btn-light btn-lg fw-bold px-5"
-              (click)="mostrarPantalla('login-duenio')">
+      <button class="btn btn-light btn-lg fw-bold px-5"
+              (click)="LoginDueno()">
         DUEÑO
       </button>
     </div>
     <div>
-      <a routerLink="/registro" class="text-white text-decoration-underline">
+      <a class="text-white text-decoration-underline"
+          (click)="Registro()">
         ¿No tenés cuenta? Crea una
       </a>
 
