@@ -20,49 +20,28 @@
     </div>
   </div>
   <div class="crear-restaurante">
-    <a href="#" class="btn-nuevo-restaurante">
-    <i class="bi bi-plus-lg"></i> Crear nuevo restaurante
+    <a href="#" class="btn-nuevo-restaurante" (click)="crearRestaurante($event)">
+      <i class="bi bi-plus-lg"></i> Crear nuevo restaurante
     </a>
-    </div>
+  </div>
+
 </header>
 
 <main class="busqueda-main">
   <section class="lista-locales">
-    <div class="local-tarjeta">
-  <img src="assets/sushi.jpg" alt="Sushi Club">
-  <div class="local-info">
-    <span class="local-nombre">Sushi Club</span>
-    <span class="local-direccion">Mexico 370</span>
-  </div>
-  <div class="botones-local">
-    <button class="btn-editar">Editar</button>
-    <button class="btn-eliminar">Eliminar</button>
-  </div>
-</div>
-
-    <div class="local-tarjeta">
-      <img src="assets/hamburgesaGato.jpg" alt="Mangos Burger">
-      <div class="local-info">
-        <span class="local-nombre">Mango's Burger</span><br>
-        <span class="local-direccion">Michigan 890</span>
-      </div>
+    @for (r of restaurantes; track r.id) {
+      <div class="local-tarjeta">
+        <img [src]="r.imageUrl" [alt]="r.name" />
+        <div class="local-info">
+          <span class="local-nombre">{{ r.name }}</span><br />
+          <span class="local-direccion">{{ r.address.street }} {{ r.address.number }}</span>
+        </div>
         <div class="botones-local">
-        <button class="btn-editar">Editar</button>
-        <button class="btn-eliminar">Eliminar</button>
-    </div>
-
-    </div>
-    <div class="local-tarjeta">
-      <img src="assets/empanada.jpg" alt="Best Empanada">
-      <div class="local-info">
-        <span class="local-nombre">Best Empanada</span><br>
-        <span class="local-direccion">Los Lirios 1350</span>
+          <button class="btn-editar" (click)="editarRestaurante(r.id)">Editar</button>
+          <button class="btn-eliminar" (click)="eliminarRestaurante(r.id)">Eliminar</button>
+        </div>
       </div>
-    <div class="botones-local">
-        <button class="btn-editar">Editar</button>
-        <button class="btn-eliminar">Eliminar</button>
-    </div>
-
-    </div>
+    }
   </section>
+</main>
 

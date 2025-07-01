@@ -1,11 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+interface Restaurante {
+  id: number;
+  name: string;
+  imageUrl: string;
+  address: {
+    street: string;
+    number: number;
+  };
+}
 
 @Component({
   selector: 'app-mis-restaurantes',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './mis-restaurantes.html',
-  styleUrl: './mis-restaurantes.css'
+  styleUrls: ['./mis-restaurantes.css'],
 })
-export class MisRestaurantes {
+export class MisRestaurantes implements OnInit {
+  restaurantes: Restaurante[] = [];
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    this.http.get<any[]>('http://localhost:3001/restaurant').subscribe({
+      next: (data) => this.restaurantes = data,
+      error: (err) => console.error('Error al cargar restaurantes:', err),
+    });
+  }
+
+  editarRestaurante(id: number) {
+    this.router.navigate(['/editar-restaurante', id]);
+  }
+
+  eliminarRestaurante(id: number) {
+    if (confirm('¿Querés eliminar este restaurante?')) {
+      this.http.delete(`http://localhost:3001/restaurant/${id}`).subscribe({
+        next: () => {
+          this.restaurantes = this.restaurantes.filter(r => r.id !== id);
+        },
+        error: (err) => console.error('Error al eliminar', err),
+      });
+    }
+  }
+
+  crearRestaurante(event: Event) {
+    event.preventDefault(); // Evita que recargue la página
+    this.router.navigate(['/crear-restaurante']);
+  }
 
 }

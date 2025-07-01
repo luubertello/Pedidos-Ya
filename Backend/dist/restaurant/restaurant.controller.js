@@ -16,16 +16,29 @@ exports.RestaurantController = void 0;
 const common_1 = require("@nestjs/common");
 const createRestaurant_DTO_1 = require("../DTO/createRestaurant.DTO");
 const restaurant_service_1 = require("./restaurant.service");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
+const restaurant_entity_1 = require("../entities/restaurant.entity");
+const menu_entity_1 = require("../entities/menu.entity");
 let RestaurantController = class RestaurantController {
     service;
-    constructor(service) {
+    restaurantRepository;
+    menuRepository;
+    constructor(service, restaurantRepository, menuRepository) {
         this.service = service;
+        this.restaurantRepository = restaurantRepository;
+        this.menuRepository = menuRepository;
     }
     async create(createRestaurantDto) {
         return this.service.create(createRestaurantDto);
     }
     async findAll() {
         return this.service.findAll();
+    }
+    async remove(id) {
+        await this.menuRepository.delete({ restaurant: { id } });
+        await this.restaurantRepository.delete(id);
+        return { message: 'Restaurante y menús eliminados correctamente' };
     }
 };
 exports.RestaurantController = RestaurantController;
@@ -43,8 +56,19 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], RestaurantController.prototype, "remove", null);
 exports.RestaurantController = RestaurantController = __decorate([
     (0, common_1.Controller)('restaurant'),
-    __metadata("design:paramtypes", [restaurant_service_1.RestaurantService])
+    __param(1, (0, typeorm_1.InjectRepository)(restaurant_entity_1.Restaurant)),
+    __param(2, (0, typeorm_1.InjectRepository)(menu_entity_1.Menu)),
+    __metadata("design:paramtypes", [restaurant_service_1.RestaurantService,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], RestaurantController);
 //# sourceMappingURL=restaurant.controller.js.map

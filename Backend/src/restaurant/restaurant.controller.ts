@@ -14,10 +14,17 @@ import {
 } from '@nestjs/common';
 import { CreateRestaurantDto } from 'src/DTO/createRestaurant.DTO';
 import { RestaurantService } from './restaurant.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Restaurant } from 'src/entities/restaurant.entity'; 
+import { Menu } from 'src/entities/menu.entity';
+
 
 @Controller('restaurant')
 export class RestaurantController {
-  constructor(private readonly service: RestaurantService) {}
+  constructor(private readonly service: RestaurantService, @InjectRepository(Restaurant)
+   private readonly restaurantRepository: Repository<Restaurant>, @InjectRepository(Menu)
+   private readonly menuRepository: Repository<Menu>) {}
 
   @Post()
   @UsePipes(new ValidationPipe({ whitelist: true }))
@@ -29,7 +36,6 @@ export class RestaurantController {
   async findAll() {
     return this.service.findAll();
   }
-}
 
   /*
   @Get(':id')
@@ -56,10 +62,19 @@ export class RestaurantController {
   ) {
     return this.service.partialUpdate(id, body);
   }
+  */
 
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
-    return this.service.remove(id);
+    // Borrar primero los menús del restaurante
+    await this.menuRepository.delete({ restaurant: { id } });
+
+    // Luego borrar el restaurante
+    await this.restaurantRepository.delete(id);
+
+    return { message: 'Restaurante y menús eliminados correctamente' };
   }
+
+
 }
-  */
+
