@@ -3,6 +3,7 @@ import { ParseIntPipe } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Menu } from 'src/entities/menu.entity';
+import { CreateMenuDto } from 'src/DTO/createMenuDTO';
 
 interface menu {
   id: number;
@@ -13,17 +14,31 @@ interface menu {
   imageUrl: string;
 }
 
-@Controller('menu')
-export class MenuController {
-  constructor(
-    @InjectRepository(Menu)
-    private readonly menuRepository: Repository<Menu>,
-  ) {}
+  @Controller('menu')
+  export class MenuController {
+    constructor(
+      @InjectRepository(Menu)
+      private readonly menuRepository: Repository<Menu>,
+    ) {}
 
     @Post()
-  create(@Body() createmenuDto: Menu): string {
-    return `This action adds a new menus. Body: ${JSON.stringify(createmenuDto)}`;
-  }
+    async create(@Body() createMenuDto: CreateMenuDto) {
+      try {
+        const newMenu = this.menuRepository.create({
+          name: createMenuDto.name,
+          description: createMenuDto.description,
+          price: createMenuDto.price,
+          imageUrl: createMenuDto.imageUrl,
+          restaurant: { id: createMenuDto.restaurantId },
+        });
+
+        return await this.menuRepository.save(newMenu);
+      } catch (error) {
+        console.error('Error creando menú:', error);
+        throw error;
+      }
+    }
+
 
     @Get()
   findAll(@Query() query: { page: number, limit: number }): string {

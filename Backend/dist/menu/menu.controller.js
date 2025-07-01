@@ -18,13 +18,27 @@ const common_2 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const menu_entity_1 = require("../entities/menu.entity");
+const createMenuDTO_1 = require("../DTO/createMenuDTO");
 let MenuController = class MenuController {
     menuRepository;
     constructor(menuRepository) {
         this.menuRepository = menuRepository;
     }
-    create(createmenuDto) {
-        return `This action adds a new menus. Body: ${JSON.stringify(createmenuDto)}`;
+    async create(createMenuDto) {
+        try {
+            const newMenu = this.menuRepository.create({
+                name: createMenuDto.name,
+                description: createMenuDto.description,
+                price: createMenuDto.price,
+                imageUrl: createMenuDto.imageUrl,
+                restaurant: { id: createMenuDto.restaurantId },
+            });
+            return await this.menuRepository.save(newMenu);
+        }
+        catch (error) {
+            console.error('Error creando menú:', error);
+            throw error;
+        }
     }
     findAll(query) {
         return `This action returns all menus. Query: ${JSON.stringify(query)}`;
@@ -53,8 +67,8 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [menu_entity_1.Menu]),
-    __metadata("design:returntype", String)
+    __metadata("design:paramtypes", [createMenuDTO_1.CreateMenuDto]),
+    __metadata("design:returntype", Promise)
 ], MenuController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),

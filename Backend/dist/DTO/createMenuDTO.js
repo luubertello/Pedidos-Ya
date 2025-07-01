@@ -9,43 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Menu = void 0;
-const typeorm_1 = require("typeorm");
-const restaurant_entity_1 = require("./restaurant.entity");
-let Menu = class Menu {
-    id;
+exports.CreateMenuDto = void 0;
+const class_validator_1 = require("class-validator");
+class CreateMenuDto {
+    restaurantId;
     name;
     description;
     price;
     imageUrl;
-    restaurant;
-};
-exports.Menu = Menu;
+}
+exports.CreateMenuDto = CreateMenuDto;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], Menu.prototype, "id", void 0);
+], CreateMenuDto.prototype, "restaurantId", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], Menu.prototype, "name", void 0);
+], CreateMenuDto.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], Menu.prototype, "description", void 0);
+], CreateMenuDto.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], Menu.prototype, "price", void 0);
+], CreateMenuDto.prototype, "price", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsUrl)(),
     __metadata("design:type", String)
-], Menu.prototype, "imageUrl", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => restaurant_entity_1.Restaurant, (restaurant) => restaurant.menus),
-    __metadata("design:type", restaurant_entity_1.Restaurant)
-], Menu.prototype, "restaurant", void 0);
-exports.Menu = Menu = __decorate([
-    (0, typeorm_1.Entity)('')
-], Menu);
-//# sourceMappingURL=menu.entity.js.map
+], CreateMenuDto.prototype, "imageUrl", void 0);
+//# sourceMappingURL=createMenuDTO.js.map

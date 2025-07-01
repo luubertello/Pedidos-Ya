@@ -1,9 +1,10 @@
 import { Repository } from 'typeorm';
 import { Menu } from 'src/entities/menu.entity';
+import { CreateMenuDto } from 'src/DTO/createMenuDTO';
 export declare class MenuController {
     private readonly menuRepository;
     constructor(menuRepository: Repository<Menu>);
-    create(createmenuDto: Menu): string;
+    create(createMenuDto: CreateMenuDto): Promise<Menu>;
     findAll(query: {
         page: number;
         limit: number;

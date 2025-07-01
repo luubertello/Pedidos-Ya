@@ -17,6 +17,7 @@ export class CrearRestauranteComponent implements OnInit, AfterViewInit {
   constructor(private http: HttpClient, private router: Router) {}
   restauranteForm!: FormGroup;
   restauranteCreado: boolean = false;
+  restauranteId!: number; 
 
   lat: number = -34.6;
   lng: number = -58.4;
@@ -97,11 +98,12 @@ ngAfterViewInit(): void {
     };
 
     console.log('Datos enviados:', data);
-
-    this.http.post('http://localhost:3001/restaurant', data)
+    
+    this.http.post<{ id: number }>('http://localhost:3001/restaurant', data)
       .subscribe({
         next: (response) => {
           console.log('Guardado exitoso:', response);
+          this.restauranteId = response.id;
         },
         error: (error) => {
           console.error('Error al guardar:', error);
@@ -110,8 +112,14 @@ ngAfterViewInit(): void {
       this.restauranteCreado = true;
   }
 
-    irAMenu() {
-    this.router.navigate(['/editar-menu']);
-}
+  
+  irAMenu() {
+    console.log('Ir a menú restaurante con id:', this.restauranteId);
+    if (!this.restauranteId) {
+      console.error('No hay restaurante creado para ir al menú');
+      return;
+    }
+    this.router.navigate(['/editar-menu', this.restauranteId]);
+  }
 }
 

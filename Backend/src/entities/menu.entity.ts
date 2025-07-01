@@ -16,7 +16,7 @@ export class Menu {
   price: number;
 
   @Column()
-  image: string;
+  imageUrl: string;
 
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus)
     restaurant: Restaurant;

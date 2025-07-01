@@ -4,6 +4,6 @@ export declare class Menu {
     name: string;
     description: string;
     price: number;
-    image: string;
+    imageUrl: string;
     restaurant: Restaurant;
 }
