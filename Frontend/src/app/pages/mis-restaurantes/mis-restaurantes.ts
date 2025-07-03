@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpHeaders } from '@angular/common/http';
 
 interface Restaurante {
   id: number;
@@ -26,11 +27,17 @@ export class MisRestaurantes implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:3001/restaurant').subscribe({
-      next: (data) => this.restaurantes = data,
-      error: (err) => console.error('Error al cargar restaurantes:', err),
-    });
-  }
+  const token = localStorage.getItem('accessToken');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+
+  this.http.get<any[]>('http://localhost:3001/restaurant/mis', { headers }).subscribe({
+    next: (data) => this.restaurantes = data,
+    error: (err) => console.error('Error al cargar restaurantes:', err),
+  });
+}
+
 
   editarRestaurante(id: number) {
     this.router.navigate(['/editar-restaurante', id]);

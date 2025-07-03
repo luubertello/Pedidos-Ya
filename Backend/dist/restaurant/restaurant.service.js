@@ -25,7 +25,7 @@ let RestaurantService = class RestaurantService {
         this.restaurantRepo = restaurantRepo;
         this.addressRepo = addressRepo;
     }
-    async create(dto) {
+    async create(dto, user) {
         try {
             const address = this.addressRepo.create({
                 street: dto.address.street,
@@ -39,6 +39,7 @@ let RestaurantService = class RestaurantService {
                 name: dto.name,
                 imageUrl: dto.imageUrl,
                 address: savedAddress,
+                owner: user,
             });
             return await this.restaurantRepo.save(restaurant);
         }
@@ -57,6 +58,12 @@ let RestaurantService = class RestaurantService {
             console.error('Error al obtener restaurantes:', error);
             throw new common_1.HttpException('Error al obtener restaurantes', 500);
         }
+    }
+    async getMisRestaurantes(userId) {
+        return this.restaurantRepo.find({
+            where: { owner: { id: userId } },
+            relations: ['owner'],
+        });
     }
     async findById(id) {
         try {

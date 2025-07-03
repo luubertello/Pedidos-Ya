@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { Menu } from 'src/entities/menu.entity';
-import { CreateMenuDto } from 'src/DTO/createMenuDTO';
+import { CreateMenuDto } from 'src/interfaces/createMenuDTO';
 export declare class MenuService {
     private readonly menuRepository;
     constructor(menuRepository: Repository<Menu>);

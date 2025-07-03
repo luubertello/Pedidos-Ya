@@ -1,48 +1,28 @@
-
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router'; // ← añade Router
-import { ApiService } from '../../services/api.service';
-
-interface Local {
-  id: number;
-  name: string;
-  adress: string;
-  rating: number;
-  imgUrl: string;
-}
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-selecc',
   templateUrl: './selecc.component.html',
-  styleUrls: ['./selecc.component.css'],
+  styleUrls: ['./selecc.component.css']
 })
 export class SeleccComponent implements OnInit {
-  locals: Local[] = [];
-  loading = false;
-  error = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private api: ApiService,
-    private router: Router
-  ) {}
+  restaurantes: any[] = [];
 
-  async ngOnInit() {
-    const id = Number(this.route.snapshot.queryParamMap.get('id'));
-    if (!id) {
-      this.error = 'ID de tipo (restaurantes/mercados/…) faltante';
-      return;
-    }
-    this.loading = true;
-    try {
-      // Traigo los locales del tipo seleccionado (ejemplo endpoint /menu?restaurantId=…)
-      this.locals = await this.api.getMenuByRestaurant(id.toString());
-      // Si tu endpoint devuelve directamente restaurantes, ajusta: getRestaurants()
-    } catch (err: any) {
-      this.error = err.message || 'Error cargando locales';
-    } finally {
-      this.loading = false;
-    }
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    this.http.get<any[]>('http://localhost:3001/restaurant').subscribe({
+      next: (data) => {
+        this.restaurantes = data.map(r => ({
+          ...r,
+          puntaje: (Math.random() * 2 + 3).toFixed(1)  // puntaje aleatorio de 3.0 a 5.0
+        }));
+      },
+      error: (err) => console.error('Error al cargar restaurantes:', err),
+    });
   }
 
   goToRestaurantDetail(id: number) {

@@ -1,5 +1,5 @@
 import { MenuService } from './menu.service';
-import { CreateMenuDto } from 'src/DTO/createMenuDTO';
+import { CreateMenuDto } from 'src/interfaces/createMenuDTO';
 export declare class MenuController {
     private readonly menuService;
     constructor(menuService: MenuService);

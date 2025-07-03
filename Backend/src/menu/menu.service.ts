@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Menu } from 'src/entities/menu.entity';
-import { CreateMenuDto } from 'src/DTO/createMenuDTO';
+import { CreateMenuDto } from 'src/interfaces/createMenuDTO';
 
 @Injectable()
 export class MenuService {

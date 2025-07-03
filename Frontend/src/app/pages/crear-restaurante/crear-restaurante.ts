@@ -5,6 +5,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import 'leaflet-control-geocoder';
 import * as L from 'leaflet';
 import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-crear-restaurante',
@@ -99,19 +101,27 @@ ngAfterViewInit(): void {
 
     console.log('Datos enviados:', data);
     
-    this.http.post<{ id: number }>('http://localhost:3001/restaurant', data)
-      .subscribe({
-        next: (response) => {
-          console.log('Guardado exitoso:', response);
-          this.restauranteId = response.id;
-        },
-        error: (error) => {
-          console.error('Error al guardar:', error);
-        }
-      });
-      this.restauranteCreado = true;
-  }
+    const token = localStorage.getItem('accessToken');
 
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    this.http.post<{ id: number }>(
+      'http://localhost:3001/restaurant',
+      data,
+      { headers }
+    ).subscribe({
+      next: (response) => {
+        console.log('Guardado exitoso:', response);
+        this.restauranteId = response.id;
+        this.restauranteCreado = true;
+      },
+      error: (error) => {
+        console.error('Error al guardar:', error);
+      }
+    });
+  }
   
   irAMenu() {
     console.log('Ir a menú restaurante con id:', this.restauranteId);

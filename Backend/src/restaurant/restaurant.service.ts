@@ -3,7 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Restaurant } from 'src/entities/restaurant.entity';
 import { Address } from 'src/entities/adress.entity';
-import { CreateRestaurantDto } from 'src/DTO/createRestaurant.DTO';
+import { CreateRestaurantDto } from 'src/interfaces/createRestaurant.DTO';
+import { UserEntity } from 'src/entities/user.entity';
 
 @Injectable()
 export class RestaurantService {
@@ -15,8 +16,9 @@ export class RestaurantService {
     private readonly addressRepo: Repository<Address>,
   ) {}
 
-  async create(dto: CreateRestaurantDto) {
+  async create(dto: CreateRestaurantDto, user: UserEntity) {
     try {
+      // Crear la dirección
       const address = this.addressRepo.create({
         street: dto.address.street,
         number: dto.address.number,
@@ -24,16 +26,19 @@ export class RestaurantService {
         lat: dto.address.location.lat,
         lng: dto.address.location.lng,
       });
-
       const savedAddress = await this.addressRepo.save(address);
 
+      // Crear el restaurante y asociar la dirección y el usuario dueño
       const restaurant = this.restaurantRepo.create({
         name: dto.name,
         imageUrl: dto.imageUrl,
         address: savedAddress,
+        owner: user,
       });
 
+      // Guardar el restaurante
       return await this.restaurantRepo.save(restaurant);
+
     } catch (error) {
       console.error('Error al crear restaurante:', error);
       throw error instanceof HttpException
@@ -41,6 +46,7 @@ export class RestaurantService {
         : new HttpException('Error de creación del restaurante', 500);
     }
   }
+
 
   async findAll() {
     try {
@@ -50,6 +56,14 @@ export class RestaurantService {
       throw new HttpException('Error al obtener restaurantes', 500);
     }
   }
+
+  async getMisRestaurantes(userId: number) {
+  return this.restaurantRepo.find({
+    where: { owner: { id: userId } },
+    relations: ['owner'],
+  });
+}
+
 
   async findById(id: number) {
     try {
