@@ -1,8 +1,9 @@
 import { UserI } from '../interfaces/user.interface';
-import { BaseEntity, Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { RoleEntity } from './role.entity';
+import { Restaurant } from './restaurant.entity';
 
-@Entity('user')
+@Entity('users')
 export class UserEntity extends BaseEntity implements UserI {
   @PrimaryGeneratedColumn()
   id: number;
@@ -16,5 +17,8 @@ export class UserEntity extends BaseEntity implements UserI {
   
   @ManyToOne(() => RoleEntity, role => role.users)
   role: RoleEntity;
+
+  @OneToMany(() => Restaurant, (restaurant) => restaurant.owner)
+  restaurants: Restaurant[];
 
 }

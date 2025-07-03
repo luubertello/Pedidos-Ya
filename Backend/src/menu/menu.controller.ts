@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Patch, Delete, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { MenuService } from './menu.service';
-import { CreateMenuDto } from 'src/DTO/createMenuDTO';
+import { CreateMenuDto } from 'src/interfaces/createMenuDTO';
 
 @Controller('menu')
 export class MenuController {

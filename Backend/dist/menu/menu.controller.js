@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuController = void 0;
 const common_1 = require("@nestjs/common");
 const menu_service_1 = require("./menu.service");
-const createMenuDTO_1 = require("../DTO/createMenuDTO");
+const createMenuDTO_1 = require("../interfaces/createMenuDTO");
 let MenuController = class MenuController {
     menuService;
     constructor(menuService) {

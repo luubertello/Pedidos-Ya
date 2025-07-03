@@ -14,12 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestaurantController = void 0;
 const common_1 = require("@nestjs/common");
-const createRestaurant_DTO_1 = require("../DTO/createRestaurant.DTO");
+const createRestaurant_DTO_1 = require("../interfaces/createRestaurant.DTO");
 const restaurant_service_1 = require("./restaurant.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const restaurant_entity_1 = require("../entities/restaurant.entity");
 const menu_entity_1 = require("../entities/menu.entity");
+const common_2 = require("@nestjs/common");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
 let RestaurantController = class RestaurantController {
     service;
     restaurantRepository;
@@ -29,11 +31,15 @@ let RestaurantController = class RestaurantController {
         this.restaurantRepository = restaurantRepository;
         this.menuRepository = menuRepository;
     }
-    async create(createRestaurantDto) {
-        return this.service.create(createRestaurantDto);
+    async create(createRestaurantDto, req) {
+        return this.service.create(createRestaurantDto, req.user);
     }
     async findAll() {
         return this.service.findAll();
+    }
+    async getMisRestaurantes(req) {
+        const userId = req.user.id;
+        return this.service.getMisRestaurantes(userId);
     }
     async findOne(id) {
         const restaurant = await this.service.findById(id);
@@ -57,10 +63,12 @@ let RestaurantController = class RestaurantController {
 exports.RestaurantController = RestaurantController;
 __decorate([
     (0, common_1.Post)(),
+    (0, common_2.UseGuards)(auth_middleware_1.AuthGuard),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ whitelist: true })),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_2.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createRestaurant_DTO_1.CreateRestaurantDto]),
+    __metadata("design:paramtypes", [createRestaurant_DTO_1.CreateRestaurantDto, Object]),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "create", null);
 __decorate([
@@ -69,6 +77,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('mis'),
+    __param(0, (0, common_2.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], RestaurantController.prototype, "getMisRestaurantes", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),

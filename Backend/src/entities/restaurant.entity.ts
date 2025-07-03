@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany, ManyToOne } from 'typeorm';
 import { Address } from './adress.entity';
 import { Menu } from './menu.entity';
+import { UserEntity } from './user.entity';
 
 @Entity()
 export class Restaurant {
@@ -17,7 +18,11 @@ export class Restaurant {
   @Column()
   imageUrl: string;
 
-    @OneToMany(() => Menu, (menu) => menu.restaurant)
-    menus: Menu[];
+  @OneToMany(() => Menu, (menu) => menu.restaurant)
+  menus: Menu[];
+
+  @ManyToOne(() => UserEntity, (user) => user.restaurants)
+  owner: UserEntity;
+
 
 }

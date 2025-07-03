@@ -41,39 +41,21 @@
   </aside>
 
   <section class="lista-locales">
-    <div class="local-tarjeta">
-      <img src="assets/Hotpizza-logo.png" alt="Hot Pizza">
-      <div class="local-info"
-      (click)="goToRestaurantDetail(1)"
-      style="cursor: pointer;"
-      title="Ir a Hot Pizza"
-      >
-        <span class="local-nombre">Hot Pizza</span><br>
-        <span class="local-direccion">Av Siempre Viva 734</span>
+    @for (r of restaurantes; track r.id) {
+      <div class="local-tarjeta">
+        <img [src]="r.imageUrl" [alt]="r.name" />
+        <div class="local-info"
+            (click)="goToRestaurantDetail(r.id)"
+            style="cursor: pointer;"
+            [title]="'Ir a ' + r.name">
+          <span class="local-nombre">{{ r.name }}</span><br />
+          <span class="local-direccion">{{ r.address.street }} {{ r.address.number }}</span>
+        </div>
+        <div class="local-puntaje">
+          {{ r.puntaje }} <span class="estrella">&#9733;</span>
+        </div>
       </div>
-      <div class="local-puntaje">
-        4.7 <span class="estrella">&#9733;</span>
-      </div>
-    </div>
-    <div class="local-tarjeta">
-      <img src="assets/imagen-logo-pizza.png.png" alt="Italian Pizza">
-      <div class="local-info">
-        <span class="local-nombre">Italian Pizza</span><br>
-        <span class="local-direccion">Calle falsa 1234</span>
-      </div>
-      <div class="local-puntaje">
-        4.2 <span class="estrella">&#9733;</span>
-      </div>
-    </div>
-    <div class="local-tarjeta">
-      <img src="assets/burgerR.jpg" alt="BurgueR">
-      <div class="local-info">
-        <span class="local-nombre">BurgueR</span><br>
-        <span class="local-direccion">Panama 275</span>
-      </div>
-      <div class="local-puntaje">
-        3.7 <span class="estrella">&#9733;</span>
-      </div>
-    </div>
+    }
   </section>
+
 </main>

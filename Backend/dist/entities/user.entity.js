@@ -12,11 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
 const typeorm_1 = require("typeorm");
 const role_entity_1 = require("./role.entity");
+const restaurant_entity_1 = require("./restaurant.entity");
 let UserEntity = class UserEntity extends typeorm_1.BaseEntity {
     id;
     email;
     password;
     role;
+    restaurants;
 };
 exports.UserEntity = UserEntity;
 __decorate([
@@ -36,7 +38,11 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => role_entity_1.RoleEntity, role => role.users),
     __metadata("design:type", role_entity_1.RoleEntity)
 ], UserEntity.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => restaurant_entity_1.Restaurant, (restaurant) => restaurant.owner),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "restaurants", void 0);
 exports.UserEntity = UserEntity = __decorate([
-    (0, typeorm_1.Entity)('user')
+    (0, typeorm_1.Entity)('users')
 ], UserEntity);
 //# sourceMappingURL=user.entity.js.map

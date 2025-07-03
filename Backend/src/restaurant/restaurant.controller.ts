@@ -12,12 +12,15 @@ import {
   NotFoundException,
   ParseIntPipe,
 } from '@nestjs/common';
-import { CreateRestaurantDto } from 'src/DTO/createRestaurant.DTO';
+import { CreateRestaurantDto } from 'src/interfaces/createRestaurant.DTO';
 import { RestaurantService } from './restaurant.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Restaurant } from 'src/entities/restaurant.entity'; 
 import { Menu } from 'src/entities/menu.entity';
+import { UseGuards, Req } from '@nestjs/common';
+import { AuthGuard } from 'src/middlewares/auth.middleware';
+import { RequestWithUser } from 'src/interfaces/request-user';
 
 
 @Controller('restaurant')
@@ -27,15 +30,26 @@ export class RestaurantController {
    private readonly menuRepository: Repository<Menu>) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe({ whitelist: true }))
-  async create(@Body() createRestaurantDto: CreateRestaurantDto) {
-    return this.service.create(createRestaurantDto);
+  async create(
+    @Body() createRestaurantDto: CreateRestaurantDto,
+    @Req() req: RequestWithUser
+  ) {
+    return this.service.create(createRestaurantDto, req.user!);
   }
 
   @Get()
   async findAll() {
     return this.service.findAll();
   }
+
+  @Get('mis')
+  async getMisRestaurantes(@Req() req: RequestWithUser) {
+    const userId = req.user!.id; 
+    return this.service.getMisRestaurantes(userId);
+  }
+
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
