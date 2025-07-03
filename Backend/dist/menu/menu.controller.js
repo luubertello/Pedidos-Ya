@@ -14,52 +14,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuController = void 0;
 const common_1 = require("@nestjs/common");
-const common_2 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
-const menu_entity_1 = require("../entities/menu.entity");
+const menu_service_1 = require("./menu.service");
 const createMenuDTO_1 = require("../DTO/createMenuDTO");
 let MenuController = class MenuController {
-    menuRepository;
-    constructor(menuRepository) {
-        this.menuRepository = menuRepository;
+    menuService;
+    constructor(menuService) {
+        this.menuService = menuService;
     }
     async create(createMenuDto) {
-        try {
-            const newMenu = this.menuRepository.create({
-                name: createMenuDto.name,
-                description: createMenuDto.description,
-                price: createMenuDto.price,
-                imageUrl: createMenuDto.imageUrl,
-                restaurant: { id: createMenuDto.restaurantId },
-            });
-            return await this.menuRepository.save(newMenu);
-        }
-        catch (error) {
-            console.error('Error creando menú:', error);
-            throw error;
-        }
+        return this.menuService.create(createMenuDto);
     }
-    findAll(query) {
-        return `This action returns all menus. Query: ${JSON.stringify(query)}`;
+    async findAll() {
+        return this.menuService.findAll();
     }
-    findOne(id) {
-        return `This action returns menu with ID ${id}`;
+    async findOne(id) {
+        return this.menuService.findOne(id);
     }
-    async findMenusByRestaurant(id) {
-        return this.menuRepository.find({
-            where: { restaurant: { id } },
-            relations: ['restaurant'],
-        });
+    async findByRestaurant(id) {
+        return this.menuService.findByRestaurant(id);
     }
-    update(id) {
-        return `This action updates menu with ID ${id}`;
+    async update(id, updateDto) {
+        return this.menuService.update(id, updateDto);
     }
-    partialUpdate(id) {
-        return `This action partially updates menu with ID ${id}`;
+    async partialUpdate(id, partialDto) {
+        return this.menuService.partialUpdate(id, partialDto);
     }
-    remove(id) {
-        return `This action removes menu with ID ${id}`;
+    async remove(id) {
+        await this.menuService.remove(id);
+        return { message: `Menú con ID ${id} eliminado correctamente` };
     }
 };
 exports.MenuController = MenuController;
@@ -72,49 +54,49 @@ __decorate([
 ], MenuController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", String)
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
 ], MenuController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", String)
-], MenuController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.Get)('/restaurant/:id/menu'),
-    __param(0, (0, common_1.Param)('id', common_2.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], MenuController.prototype, "findMenusByRestaurant", null);
+], MenuController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)('restaurant/:id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "findByRestaurant", null);
 __decorate([
     (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", String)
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Promise)
 ], MenuController.prototype, "update", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", String)
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Promise)
 ], MenuController.prototype, "partialUpdate", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", String)
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
 ], MenuController.prototype, "remove", null);
 exports.MenuController = MenuController = __decorate([
     (0, common_1.Controller)('menu'),
-    __param(0, (0, typeorm_1.InjectRepository)(menu_entity_1.Menu)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [menu_service_1.MenuService])
 ], MenuController);
 //# sourceMappingURL=menu.controller.js.map

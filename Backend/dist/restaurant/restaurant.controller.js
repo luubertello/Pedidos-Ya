@@ -35,6 +35,19 @@ let RestaurantController = class RestaurantController {
     async findAll() {
         return this.service.findAll();
     }
+    async findOne(id) {
+        const restaurant = await this.service.findById(id);
+        if (!restaurant) {
+            throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+        }
+        return restaurant;
+    }
+    async update(id, body) {
+        return this.service.update(id, body);
+    }
+    async partialUpdate(id, body) {
+        return this.service.partialUpdate(id, body);
+    }
     async remove(id) {
         await this.menuRepository.delete({ restaurant: { id } });
         await this.restaurantRepository.delete(id);
@@ -56,6 +69,29 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], RestaurantController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, createRestaurant_DTO_1.CreateRestaurantDto]),
+    __metadata("design:returntype", Promise)
+], RestaurantController.prototype, "update", null);
+__decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Promise)
+], RestaurantController.prototype, "partialUpdate", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),

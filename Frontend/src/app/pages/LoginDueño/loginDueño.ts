@@ -26,7 +26,7 @@ export class LoginDueñoComponent implements OnInit {
 
   iniciarSesion() {
     if (this.loginDuenoForm.invalid) return;
-
+    console.log(this.loginDuenoForm.value);
   this.authService.login(this.loginDuenoForm.value).subscribe({
     next: (response) => {
       this.mensajeError = '';

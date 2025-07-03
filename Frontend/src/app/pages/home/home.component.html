@@ -19,7 +19,10 @@
 <main class="contenido-de-la-pagina">
   <h2>¡Hola! ¿Qué vas a pedir hoy?</h2>
   <div class="opciones">
-    <div class="opcion-tarjeta">
+
+    <div class="opcion-tarjeta"
+      (click)="goToSelecc()"
+      title="Ver Restaurante">
       <img src="assets/cute-cartoon-burger.png" alt="Restaurante">
       <span>Restaurantes</span>
     </div>
@@ -36,6 +39,11 @@
  <h3>Te sugerimos...</h3>
 <div class="sugerencias">
   <div class="sugerencia-tarjeta">
+  <div class="sugerencia-tarjeta"
+    (click)="goToRestaurant(1)"
+    style="cursor: pointer;"
+    title="Ir a Hot Pizza"
+    >
     <img src="assets/Hotpizza-logo.png" alt="Hot Pizza">
     <div>
       <span class="nombre-local">Hot Pizza</span><br>
@@ -51,4 +59,3 @@
   </div>
 </div>
 
-</main>

@@ -1,0 +1,132 @@
+<div class="contenedor-editar-restaurante" *ngIf="restaurante">
+
+  <!-- Tarjeta restaurante -->
+  <div class="tarjeta-restaurante">
+    <img [src]="restaurante?.imageUrl || 'https://via.placeholder.com/140'" alt="Imagen restaurante" class="imagen-restaurante">
+
+    <div class="campos-restaurante">
+      <div class="campo-editable">
+        <label>Nombre:</label>
+        <input [(ngModel)]="restaurante.name"
+               [readonly]="!editandoNombreRestaurante"
+               class="input-editable"
+               placeholder="Nombre del restaurante" />
+        <button (click)="habilitarCampoRestaurante('name')">✏️</button>
+      </div>
+
+      <div class="campo-editable">
+        <label>Imagen URL:</label>
+        <input [(ngModel)]="restaurante.imageUrl"
+               [readonly]="!editandoImageUrlRestaurante"
+               class="input-editable"
+               placeholder="URL de la imagen" />
+        <button (click)="habilitarCampoRestaurante('imageUrl')">✏️</button>
+      </div>
+
+      <div class="campo-editable">
+        <label>Calle:</label>
+        <input [(ngModel)]="restaurante.address.street"
+               [readonly]="!editandoAddressFields['street']"
+               class="input-editable"
+               placeholder="Calle" />
+        <button (click)="habilitarCampoAddress('street')">✏️</button>
+      </div>
+
+      <div class="campo-editable">
+        <label>Número:</label>
+        <input type="number"
+               [(ngModel)]="restaurante.address.number"
+               [readonly]="!editandoAddressFields['number']"
+               class="input-editable"
+               placeholder="Número" />
+        <button (click)="habilitarCampoAddress('number')">✏️</button>
+      </div>
+
+      <div class="campo-editable">
+        <label>City ID:</label>
+        <input type="number"
+               [(ngModel)]="restaurante.address.cityID"
+               [readonly]="!editandoAddressFields['cityID']"
+               class="input-editable"
+               placeholder="City ID" />
+        <button (click)="habilitarCampoAddress('cityID')">✏️</button>
+      </div>
+
+      <div class="campo-editable">
+        <label>Latitud:</label>
+        <input type="number" step="any"
+               [(ngModel)]="restaurante.address.lat"
+               [readonly]="!editandoAddressFields['lat']"
+               class="input-editable"
+               placeholder="Latitud" />
+        <button (click)="habilitarCampoAddress('lat')">✏️</button>
+      </div>
+
+      <div class="campo-editable">
+        <label>Longitud:</label>
+        <input type="number" step="any"
+               [(ngModel)]="restaurante.address.lng"
+               [readonly]="!editandoAddressFields['lng']"
+               class="input-editable"
+               placeholder="Longitud" />
+        <button (click)="habilitarCampoAddress('lng')">✏️</button>
+      </div>
+
+      <button class="btn-guardar" (click)="guardarCambiosRestaurante()">Guardar Cambios</button>
+    </div>
+  </div>
+
+  <!-- Botón agregar menú -->
+  <div class="boton-agregar-menu">
+    <button (click)="irAEditarMenu()">➕ Agregar menú</button>
+  </div>
+
+  <!-- Lista de menús -->
+  <div class="lista-menus">
+    <div class="tarjeta-menu" *ngFor="let menu of menus">
+      <img [src]="menu.imageUrl || 'https://via.placeholder.com/260x140'" alt="Imagen menú" class="imagen-menu" />
+
+      <label>Nombre:</label>
+      <div class="campo-editable">
+        <input [(ngModel)]="menu.name"
+               [readonly]="!editandoCamposMenu[menu.id]['name']"
+               class="input-editable"
+               placeholder="Nombre del menú" />
+        <button (click)="habilitarCampoMenu(menu.id, 'name')">✏️</button>
+      </div>
+
+      <label>Descripción:</label>
+      <div class="campo-editable">
+        <input [(ngModel)]="menu.description"
+               [readonly]="!editandoCamposMenu[menu.id]['description']"
+               class="input-editable"
+               placeholder="Descripción" />
+        <button (click)="habilitarCampoMenu(menu.id, 'description')">✏️</button>
+      </div>
+
+      <label>Precio:</label>
+      <div class="campo-editable">
+        <input type="number"
+               [(ngModel)]="menu.price"
+               [readonly]="!editandoCamposMenu[menu.id]['price']"
+               class="input-editable"
+               placeholder="Precio" />
+        <button (click)="habilitarCampoMenu(menu.id, 'price')">✏️</button>
+      </div>
+
+      <label>Imagen URL:</label>
+      <div class="campo-editable">
+        <input [(ngModel)]="menu.imageUrl"
+               [readonly]="!editandoCamposMenu[menu.id]['imageUrl']"
+               class="input-editable"
+               placeholder="URL de la imagen" />
+        <button (click)="habilitarCampoMenu(menu.id, 'imageUrl')">✏️</button>
+      </div>
+
+      <div class="botones-menu">
+        <button class="btn-guardar-menu" (click)="guardarMenu(menu)">Guardar</button>
+        <button class="btn-eliminar-menu" (click)="eliminarMenu(menu.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

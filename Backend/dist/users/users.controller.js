@@ -32,6 +32,7 @@ let UsersController = class UsersController {
         };
     }
     loginUser(body) {
+        console.log('Login request body:', body);
         return this.service.login(body);
     }
     registerUser(body) {

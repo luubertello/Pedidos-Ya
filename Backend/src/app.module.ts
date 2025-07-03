@@ -17,6 +17,7 @@ import { PermissionService } from './permission/permission.service';
 import { RoleService } from './role/role.service';
 import { UserEntity } from './entities/user.entity';
 import { RestaurantService } from './restaurant/restaurant.service';
+import { MenuService } from './menu/menu.service';
 
 @Module({
   imports: [
@@ -34,6 +35,6 @@ import { RestaurantService } from './restaurant/restaurant.service';
     TypeOrmModule.forFeature([Restaurant, Menu, Address, PermissionEntity, RoleEntity, UserEntity]),
   ],
   controllers: [RestaurantController, MenuController, PermissionsController, RolesController, UsersController],
-  providers: [AuthGuard, JwtService, UsersService, PermissionService, RoleService, RestaurantService]
+  providers: [AuthGuard, JwtService, UsersService, PermissionService, RoleService, RestaurantService, MenuService]
 })
 export class AppModule {}

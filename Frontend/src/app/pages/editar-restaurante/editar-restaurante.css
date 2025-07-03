@@ -1,0 +1,263 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.contenedor-editar-restaurante {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Tarjeta Restaurante */
+.tarjeta-restaurante {
+  display: flex;
+  background-color: #b71c1c; /* rojo oscuro */
+  color: white;
+  padding: 24px 30px;
+  border-radius: 20px;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0 6px 18px rgba(183, 28, 28, 0.4);
+}
+
+.imagen-restaurante {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  flex-shrink: 0;
+}
+
+/* Formulario campos restaurante */
+.campos-restaurante {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px 30px;
+}
+
+.campo-editable {
+  position: relative;
+}
+
+.campo-editable label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.input-editable {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 15px;
+  border: none;
+  font-size: 1rem;
+  color: #b71c1c;
+  background: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.input-editable[readonly] {
+  background: #f2f2f2;
+  color: #666;
+  cursor: default;
+}
+
+.input-editable:focus {
+  outline: none;
+  box-shadow: 0 0 8px #f44336;
+}
+
+/* Botón lápiz pequeño */
+.campo-editable button {
+  position: absolute;
+  right: 8px;
+  top: 35px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #f44336;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.campo-editable button:hover {
+  color: #d32f2f;
+}
+
+/* Botón Guardar Restaurante */
+.btn-guardar {
+  align-self: flex-start;
+  background-color: #f44336;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(244, 67, 54, 0.6);
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn-guardar:hover {
+  background-color: #d32f2f;
+}
+
+/* Botón agregar menú */
+.boton-agregar-menu {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.boton-agregar-menu button {
+  background: #b71c1c;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(183, 28, 28, 0.6);
+  transition: background-color 0.3s ease;
+}
+
+.boton-agregar-menu button:hover {
+  background-color: #7f0000;
+}
+
+/* Lista de menús - grid responsive */
+.lista-menus {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+/* Tarjeta menú */
+.tarjeta-menu {
+  background: white;
+  border-radius: 18px;
+  padding: 18px 20px;
+  box-shadow: 0 3px 10px rgba(183, 28, 28, 0.15);
+  border: 2px solid #b71c1c;
+  color: #b71c1c;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.imagen-menu {
+  width: 100%;
+  height: 140px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 2px solid #f44336;
+  margin-bottom: 10px;
+}
+
+.tarjeta-menu label {
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #b71c1c;
+}
+
+.tarjeta-menu .campo-editable {
+  position: relative;
+}
+
+.tarjeta-menu .input-editable {
+  border-radius: 12px;
+  border: 1px solid #f44336;
+  padding: 8px 12px;
+  font-size: 1rem;
+  color: #b71c1c;
+  background: white;
+  width: 100%;
+}
+
+.tarjeta-menu .input-editable[readonly] {
+  background: #f9f9f9;
+  color: #999;
+  cursor: default;
+}
+
+.tarjeta-menu .campo-editable button {
+  top: 50%;
+  transform: translateY(-50%);
+  right: 8px;
+  position: absolute;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #f44336;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tarjeta-menu .campo-editable button:hover {
+  color: #d32f2f;
+}
+
+.botones-menu {
+  display: flex;
+  gap: 10px; /* agrega espacio entre botones */
+  margin-top: 10px;
+}
+
+.btn-guardar-menu {
+  background-color: #2ecc71; /* verde */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-guardar-menu:hover {
+  background-color: #27ae60;
+}
+
+.btn-eliminar-menu {
+  background-color: #e53935; /* rojo fuerte */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-eliminar-menu:hover {
+  background-color: #b71c1c;
+}
+
+
+/* Responsive pequeño */
+@media (max-width: 720px) {
+  .tarjeta-restaurante {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .campos-restaurante {
+    grid-template-columns: 1fr !important;
+  }
+
+  .boton-agregar-menu {
+    justify-content: center;
+  }
+}

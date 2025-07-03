@@ -17,14 +17,14 @@ export class AuthService {
     );
   }
 
-  register(data: {
-    nombre: string;
-    usuario: string;
-    email: string;
-    password: string;
-    roleId: number;
-  }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users/register`, data);
+  register(data: { email: string; password: string; roleId: number }): Observable<any> {
+    // Solo enviamos las propiedades necesarias
+    const payload = {
+      email: data.email,
+      password: data.password,
+      roleId: data.roleId,
+    };
+    return this.http.post(`${this.baseUrl}/users/register`, payload);
   }
 
   logout(): void {

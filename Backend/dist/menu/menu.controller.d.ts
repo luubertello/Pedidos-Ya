@@ -1,17 +1,15 @@
-import { Repository } from 'typeorm';
-import { Menu } from 'src/entities/menu.entity';
+import { MenuService } from './menu.service';
 import { CreateMenuDto } from 'src/DTO/createMenuDTO';
 export declare class MenuController {
-    private readonly menuRepository;
-    constructor(menuRepository: Repository<Menu>);
-    create(createMenuDto: CreateMenuDto): Promise<Menu>;
-    findAll(query: {
-        page: number;
-        limit: number;
-    }): string;
-    findOne(id: number): string;
-    findMenusByRestaurant(id: number): Promise<Menu[]>;
-    update(id: string): string;
-    partialUpdate(id: string): string;
-    remove(id: string): string;
+    private readonly menuService;
+    constructor(menuService: MenuService);
+    create(createMenuDto: CreateMenuDto): Promise<import("../entities/menu.entity").Menu>;
+    findAll(): Promise<import("../entities/menu.entity").Menu[]>;
+    findOne(id: number): Promise<import("../entities/menu.entity").Menu>;
+    findByRestaurant(id: number): Promise<import("../entities/menu.entity").Menu[]>;
+    update(id: number, updateDto: Partial<CreateMenuDto>): Promise<import("../entities/menu.entity").Menu>;
+    partialUpdate(id: number, partialDto: Partial<CreateMenuDto>): Promise<import("../entities/menu.entity").Menu>;
+    remove(id: number): Promise<{
+        message: string;
+    }>;
 }

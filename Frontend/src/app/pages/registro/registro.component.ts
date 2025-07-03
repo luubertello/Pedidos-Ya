@@ -33,7 +33,7 @@ export class RegistroComponent implements OnInit {
 
     const { nombre, usuario, email, password, roleId } = this.registroForm.value;
 
-    this.authService.register({ nombre, usuario, email, password, roleId }).subscribe({
+    this.authService.register({ email, password, roleId }).subscribe({
       next: () => {
         this.error = null;
         this.router.navigate(['/landing']);

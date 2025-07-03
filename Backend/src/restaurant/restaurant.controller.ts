@@ -37,7 +37,6 @@ export class RestaurantController {
     return this.service.findAll();
   }
 
-  /*
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const restaurant = await this.service.findById(id);
@@ -62,7 +61,7 @@ export class RestaurantController {
   ) {
     return this.service.partialUpdate(id, body);
   }
-  */
+  
 
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
@@ -74,7 +73,6 @@ export class RestaurantController {
 
     return { message: 'Restaurante y menús eliminados correctamente' };
   }
-
 
 }
 

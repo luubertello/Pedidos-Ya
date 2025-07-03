@@ -9,6 +9,7 @@ import { MisRestaurantes } from './pages/mis-restaurantes/mis-restaurantes';
 import { CrearRestauranteComponent } from './pages/crear-restaurante/crear-restaurante';
 import { LoginDueñoComponent } from './pages/LoginDueño/loginDueño';
 import { EditarMenuComponent } from './pages/editar-menu/editar-menu';
+import { EditarRestaurante } from './pages/editar-restaurante/editar-restaurante';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -22,5 +23,9 @@ export const routes: Routes = [
   { path: 'login-dueño', component: LoginDueñoComponent },
   { path: 'editar-menu', component: EditarMenuComponent },
   { path: 'editar-menu/:id', component: EditarMenuComponent },
+  { path: 'editar-restaurante/:id',
+  loadComponent: () => import('./pages/editar-restaurante/editar-restaurante')
+    .then(m => m.EditarRestaurante)},
+  { path: 'editar-restaurante', component: EditarRestaurante},
   { path: '**', redirectTo: '' }
 ];

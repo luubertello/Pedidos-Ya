@@ -34,14 +34,13 @@ let RestaurantService = class RestaurantService {
                 lat: dto.address.location.lat,
                 lng: dto.address.location.lng,
             });
-            const savedaddress = await this.addressRepo.save(address);
+            const savedAddress = await this.addressRepo.save(address);
             const restaurant = this.restaurantRepo.create({
                 name: dto.name,
                 imageUrl: dto.imageUrl,
-                address: savedaddress,
+                address: savedAddress,
             });
-            const savedRestaurant = await this.restaurantRepo.save(restaurant);
-            return savedRestaurant;
+            return await this.restaurantRepo.save(restaurant);
         }
         catch (error) {
             console.error('Error al crear restaurante:', error);
@@ -57,6 +56,90 @@ let RestaurantService = class RestaurantService {
         catch (error) {
             console.error('Error al obtener restaurantes:', error);
             throw new common_1.HttpException('Error al obtener restaurantes', 500);
+        }
+    }
+    async findById(id) {
+        try {
+            const restaurant = await this.restaurantRepo.findOne({
+                where: { id },
+                relations: ['address'],
+            });
+            if (!restaurant) {
+                throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+            }
+            return restaurant;
+        }
+        catch (error) {
+            console.error('Error al obtener restaurante:', error);
+            throw error instanceof common_1.HttpException
+                ? error
+                : new common_1.HttpException('Error al obtener restaurante', 500);
+        }
+    }
+    async update(id, dto) {
+        try {
+            const restaurant = await this.restaurantRepo.findOne({
+                where: { id },
+                relations: ['address'],
+            });
+            if (!restaurant) {
+                throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+            }
+            restaurant.name = dto.name;
+            restaurant.imageUrl = dto.imageUrl;
+            if (dto.address && restaurant.address) {
+                restaurant.address.street = dto.address.street;
+                restaurant.address.number = dto.address.number;
+                restaurant.address.cityID = dto.address.cityID;
+                restaurant.address.lat = dto.address.location.lat;
+                restaurant.address.lng = dto.address.location.lng;
+                await this.addressRepo.save(restaurant.address);
+            }
+            return await this.restaurantRepo.save(restaurant);
+        }
+        catch (error) {
+            console.error('Error al actualizar restaurante:', error);
+            throw error instanceof common_1.HttpException
+                ? error
+                : new common_1.HttpException('Error al actualizar restaurante', 500);
+        }
+    }
+    async partialUpdate(id, dto) {
+        try {
+            const restaurant = await this.restaurantRepo.findOne({
+                where: { id },
+                relations: ['address'],
+            });
+            if (!restaurant) {
+                throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
+            }
+            if (dto.name !== undefined)
+                restaurant.name = dto.name;
+            if (dto.imageUrl !== undefined)
+                restaurant.imageUrl = dto.imageUrl;
+            if (dto.address && restaurant.address) {
+                const { street, number, cityID, location } = dto.address;
+                if (street !== undefined)
+                    restaurant.address.street = street;
+                if (number !== undefined)
+                    restaurant.address.number = number;
+                if (cityID !== undefined)
+                    restaurant.address.cityID = cityID;
+                if (location) {
+                    if (location.lat !== undefined)
+                        restaurant.address.lat = location.lat;
+                    if (location.lng !== undefined)
+                        restaurant.address.lng = location.lng;
+                }
+                await this.addressRepo.save(restaurant.address);
+            }
+            return await this.restaurantRepo.save(restaurant);
+        }
+        catch (error) {
+            console.error('Error al actualizar parcialmente restaurante:', error);
+            throw error instanceof common_1.HttpException
+                ? error
+                : new common_1.HttpException('Error parcial al actualizar restaurante', 500);
         }
     }
     async remove(id) {
