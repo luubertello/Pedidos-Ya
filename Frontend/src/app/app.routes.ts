@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'registro', component: RegistroComponent }, 
   { path: 'inicio', component: HomeComponent },
   { path: 'selecc', component: SeleccComponent },
-  { path: 'restaurantes', component: RestaurantComponent },
+  { path: 'restaurant/:id', component: RestaurantComponent },
   { path: 'mis-restaurantes', component: MisRestaurantes },
   { path: 'crear-restaurante', component: CrearRestauranteComponent },
   { path: 'login-dueño', component: LoginDueñoComponent },

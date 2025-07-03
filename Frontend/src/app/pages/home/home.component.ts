@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
 
  
   goToRestaurant(id: number) {
-    this.router.navigate(['/restaurant'], { queryParams: { id } });
+    this.router.navigate(['/restaurant', id]);
   }
 
 }
