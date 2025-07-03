@@ -11,7 +11,7 @@ export declare class RestaurantController {
     constructor(service: RestaurantService, restaurantRepository: Repository<Restaurant>, menuRepository: Repository<Menu>);
     create(createRestaurantDto: CreateRestaurantDto, req: RequestWithUser): Promise<Restaurant>;
     findAll(): Promise<Restaurant[]>;
-    getMisRestaurantes(req: RequestWithUser): Promise<Restaurant[]>;
+    getMisRestaurantes(req: any): Promise<Restaurant[]>;
     findOne(id: number): Promise<Restaurant>;
     update(id: number, body: CreateRestaurantDto): Promise<Restaurant>;
     partialUpdate(id: number, body: Partial<CreateRestaurantDto>): Promise<Restaurant>;

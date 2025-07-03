@@ -44,10 +44,11 @@ export class RestaurantController {
     return this.service.findAll();
   }
 
+  @UseGuards(AuthGuard)
   @Get('mis')
-  async getMisRestaurantes(@Req() req: RequestWithUser) {
-    const userId = req.user!.id; 
-    return this.service.getMisRestaurantes(userId);
+  getMisRestaurantes(@Req() req) {
+    console.log('USUARIO:', req.user);
+    return this.service.getMisRestaurantes(req.user.id);
   }
 
 

@@ -117,10 +117,7 @@ h3 {
   font-size: 1.15rem;
   font-weight: 600;
   color: #fff;
-<<<<<<< HEAD
-=======
   cursor: pointer;
->>>>>>> master
   transition: transform 0.13s, box-shadow 0.13s;
 }
 
@@ -182,10 +179,7 @@ h3 {
   box-shadow: 0 4px 14px rgba(219, 31, 54, 0.10);
   font-size: 1.15rem;
   transition: transform 0.13s, box-shadow 0.13s;
-<<<<<<< HEAD
-=======
   cursor: pointer;
->>>>>>> master
 }
 .sugerencia-tarjeta img {
   width: 72px;

@@ -37,9 +37,9 @@ let RestaurantController = class RestaurantController {
     async findAll() {
         return this.service.findAll();
     }
-    async getMisRestaurantes(req) {
-        const userId = req.user.id;
-        return this.service.getMisRestaurantes(userId);
+    getMisRestaurantes(req) {
+        console.log('USUARIO:', req.user);
+        return this.service.getMisRestaurantes(req.user.id);
     }
     async findOne(id) {
         const restaurant = await this.service.findById(id);
@@ -78,11 +78,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "findAll", null);
 __decorate([
+    (0, common_2.UseGuards)(auth_middleware_1.AuthGuard),
     (0, common_1.Get)('mis'),
     __param(0, (0, common_2.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], RestaurantController.prototype, "getMisRestaurantes", null);
 __decorate([
     (0, common_1.Get)(':id'),
