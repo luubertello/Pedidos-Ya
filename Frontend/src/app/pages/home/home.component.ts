@@ -1,35 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { GlobalStatusService } from '../../services/global-status.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrls: ['./home.component.css']
 })
-
 export class HomeComponent implements OnInit {
-  restaurants: any[] = [];
 
-  constructor(
-    private api: ApiService,
-    private router: Router        
-  ) {}
+  sugerencias: any[] = [];
 
-  ngOnInit() {
-    this.api.getRestaurants().then(data => this.restaurants = data);
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    // Cargar restaurantes con id 1 y 2
+    const ids = [1, 2];
+    const requests = ids.map(id =>
+      this.http.get(`http://localhost:3001/restaurant/${id}`)
+    );
+
+    // Hacer todas las peticiones y esperar que terminen
+    Promise.all(requests.map(req => req.toPromise()))
+      .then(results => {
+        this.sugerencias = results;
+      })
+      .catch(error => console.error('Error al cargar sugerencias', error));
   }
 
-  // ← método que llamaremos desde el template
-  goToSelecc() {
-    this.router.navigate(['/selecc']);
-  }
-
- 
   goToRestaurant(id: number) {
     this.router.navigate(['/restaurant', id]);
   }
 
+  goToSelecc() {
+  this.router.navigate(['/selecc']);
+  }
 }

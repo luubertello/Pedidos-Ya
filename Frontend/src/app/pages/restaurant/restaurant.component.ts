@@ -15,8 +15,10 @@ import { CommonModule } from '@angular/common';
 
 export class RestaurantComponent implements OnInit {
 
-restaurant: any;
+  restaurant: any;
   menu: any[] = [];
+  puntaje: string = '0';
+
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
@@ -27,7 +29,8 @@ restaurant: any;
       next: (data: any) => {
         console.log(data);
         this.restaurant = data;
-        this.menu = data.menu ?? []; 
+        this.menu = data.menu ?? [];
+        this.puntaje = (Math.random() * 2 + 3).toFixed(1);
       },
       error: (err) => console.error('Error al cargar el restaurante', err)
     });

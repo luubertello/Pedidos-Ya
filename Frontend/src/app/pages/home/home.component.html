@@ -36,24 +36,17 @@
     </div>
   </div>
 
- <h3>Te sugerimos...</h3>
+<h3>Te sugerimos...</h3>
 <div class="sugerencias">
   <div class="sugerencia-tarjeta"
-    (click)="goToRestaurant(1)"
-    style="cursor: pointer;"
-    title="Ir a Hot Pizza"
-    >
-    <img src="assets/Hotpizza-logo.png" alt="Hot Pizza">
+       *ngFor="let r of sugerencias"
+       (click)="goToRestaurant(r.id)"
+       style="cursor: pointer;"
+       [title]="'Ir a ' + r.name">
+    <img [src]="r.imageUrl" [alt]="r.name">
     <div>
-      <span class="nombre-local">Hot Pizza</span><br>
-      <span class="direccion-local">Av Siempre Viva 734</span>
-    </div>
-  </div>
-  <div class="sugerencia-tarjeta">
-    <img src="assets/imagen-logo-pizza.png.png" alt="Italian Pizza">
-    <div>
-      <span class="nombre-local">Italian Pizza</span><br>
-      <span class="direccion-local">Calle falsa 1234</span>
+      <span class="nombre-local">{{ r.name }}</span><br>
+      <span class="direccion-local">{{ r.address?.street }} {{ r.address?.number }}</span>
     </div>
   </div>
 </div>

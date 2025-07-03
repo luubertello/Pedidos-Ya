@@ -27,7 +27,7 @@
     </div>
     <div class="local-meta">
       <div class="meta-item"><i class="bi bi-clock"></i>20/30 min</div>
-      <div class="meta-item"><i class="bi bi-star-fill"></i>{{ restaurant.puntaje ?? '4.5' }}</div>
+      <div class="meta-item"><i class="bi bi-star-fill"></i>{{ puntaje }}</div>
     </div>
   </section>
 
@@ -39,7 +39,7 @@
         <span class="producto-nombre">{{ m.name }}</span>
         <span class="producto-subtitulo">{{ m.description }}</span>
         <div class="producto-comprar">
-          <span class="precio">{{ m.price }}</span>
+          <span class="precio">${{ m.price }}</span>
           <button class="btn-agregar">AGREGAR</button>
         </div>
       </div>
