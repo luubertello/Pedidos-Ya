@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'registro', component: RegistroComponent }, 
   { path: 'inicio', component: HomeComponent },
   { path: 'selecc', component: SeleccComponent },
-  { path: 'restaurantes', component: RestaurantComponent },
+  { path: 'restaurant', component: RestaurantComponent },
   { path: 'mis-restaurantes', component: MisRestaurantes },
   { path: 'crear-restaurante', component: CrearRestauranteComponent },
   { path: 'login-dueño', component: LoginDueñoComponent },
@@ -27,5 +27,6 @@ export const routes: Routes = [
   loadComponent: () => import('./pages/editar-restaurante/editar-restaurante')
     .then(m => m.EditarRestaurante)},
   { path: 'editar-restaurante', component: EditarRestaurante},
+  { path: 'restaurant/:id', component: RestaurantComponent },
   { path: '**', redirectTo: '' }
 ];

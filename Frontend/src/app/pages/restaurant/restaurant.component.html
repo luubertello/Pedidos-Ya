@@ -16,51 +16,30 @@
   </div>
 </header>
 
-<main class="busqueda-main">
+<main class="busqueda-main" *ngIf="restaurant">
   <section class="local-tarjeta">
-    <img src="assets/Hotpizza-logo.png" alt="Hot Pizza">
+    <img [src]="restaurant.imageUrl" [alt]="restaurant.name">
     <div class="local-info">
-      <span class="local-nombre">Hot Pizza</span><br>
-      <span class="local-direccion">Av Siempre Viva 734</span>
+      <span class="local-nombre">{{ restaurant.name }}</span><br>
+      <span class="local-direccion">
+        {{ restaurant.address?.street }} {{ restaurant.address?.number }}
+      </span>
     </div>
     <div class="local-meta">
-      <div class="meta-item"><i class="bi bi-clock"></i>20–30 min</div>
-      <div class="meta-item"><i class="bi bi-star-fill"></i>4.7</div>
+      <div class="meta-item"><i class="bi bi-clock"></i>20/30 min</div>
+      <div class="meta-item"><i class="bi bi-star-fill"></i>{{ restaurant.puntaje ?? '4.5' }}</div>
     </div>
   </section>
 
   <section class="lista-productos">
-    <div class="producto-card">
-      <img src="assets/imagen1.png" alt="Pizza Fungie">
+    <div *ngIf="menu.length === 0">Este restaurante no tiene menús disponibles.</div>
+    <div class="producto-card" *ngFor="let m of menu">
+      <img [src]="m.imageUrl || 'assets/placeholder.png'" [alt]="m.name">
       <div class="producto-detalles">
-        <span class="producto-nombre">Pizza Fungie</span>
-        <span class="producto-subtitulo">Pizza de hongos, ques…</span>
+        <span class="producto-nombre">{{ m.name }}</span>
+        <span class="producto-subtitulo">{{ m.description }}</span>
         <div class="producto-comprar">
-          <span class="precio">$12.000</span>
-          <button class="btn-agregar">AGREGAR</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="producto-card">
-      <img src="assets/imagen2.png" alt="Pizza Peperoni">
-      <div class="producto-detalles">
-        <span class="producto-nombre">Pizza Peperoni</span>
-        <span class="producto-subtitulo">Pizza de peperoni ques…</span>
-        <div class="producto-comprar">
-          <span class="precio">$12.000</span>
-          <button class="btn-agregar">AGREGAR</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="producto-card">
-      <img src="assets/imagen3.png" alt="Pizza Margarita">
-      <div class="producto-detalles">
-        <span class="producto-nombre">Pizza Margarita</span>
-        <span class="producto-subtitulo">Pizza de queso muzz…</span>
-        <div class="producto-comprar">
-          <span class="precio">$15.000</span>
+          <span class="precio">{{ m.price }}</span>
           <button class="btn-agregar">AGREGAR</button>
         </div>
       </div>

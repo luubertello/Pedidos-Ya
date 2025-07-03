@@ -19,7 +19,7 @@ let Restaurant = class Restaurant {
     name;
     address;
     imageUrl;
-    menus;
+    menu;
     owner;
 };
 exports.Restaurant = Restaurant;
@@ -43,7 +43,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.OneToMany)(() => menu_entity_1.Menu, (menu) => menu.restaurant),
     __metadata("design:type", Array)
-], Restaurant.prototype, "menus", void 0);
+], Restaurant.prototype, "menu", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, (user) => user.restaurants),
     __metadata("design:type", user_entity_1.UserEntity)

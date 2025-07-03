@@ -19,7 +19,7 @@ export class Restaurant {
   imageUrl: string;
 
   @OneToMany(() => Menu, (menu) => menu.restaurant)
-  menus: Menu[];
+  menu: Menu[];
 
   @ManyToOne(() => UserEntity, (user) => user.restaurants)
   owner: UserEntity;
