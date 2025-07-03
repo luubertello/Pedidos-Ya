@@ -69,11 +69,12 @@ let RestaurantService = class RestaurantService {
         try {
             const restaurant = await this.restaurantRepo.findOne({
                 where: { id },
-                relations: ['address'],
+                relations: ['address', 'menu'],
             });
             if (!restaurant) {
                 throw new common_1.NotFoundException(`Restaurante con ID ${id} no encontrado.`);
             }
+            console.log('RESTAURANTE CON MENUS:', restaurant);
             return restaurant;
         }
         catch (error) {

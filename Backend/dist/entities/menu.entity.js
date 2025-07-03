@@ -42,7 +42,7 @@ __decorate([
     __metadata("design:type", String)
 ], Menu.prototype, "imageUrl", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => restaurant_entity_1.Restaurant, (restaurant) => restaurant.menus),
+    (0, typeorm_1.ManyToOne)(() => restaurant_entity_1.Restaurant, (restaurant) => restaurant.menu),
     __metadata("design:type", restaurant_entity_1.Restaurant)
 ], Menu.prototype, "restaurant", void 0);
 exports.Menu = Menu = __decorate([

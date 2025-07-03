@@ -27,5 +27,6 @@ export const routes: Routes = [
   loadComponent: () => import('./pages/editar-restaurante/editar-restaurante')
     .then(m => m.EditarRestaurante)},
   { path: 'editar-restaurante', component: EditarRestaurante},
+  { path: 'restaurant/:id', component: RestaurantComponent },
   { path: '**', redirectTo: '' }
 ];

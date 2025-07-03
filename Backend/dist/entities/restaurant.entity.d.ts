@@ -6,6 +6,6 @@ export declare class Restaurant {
     name: string;
     address: Address;
     imageUrl: string;
-    menus: Menu[];
+    menu: Menu[];
     owner: UserEntity;
 }
