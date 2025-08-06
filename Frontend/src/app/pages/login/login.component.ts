@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   this.authService.login(this.loginClienteForm.value).subscribe({
     next: (response) => {
       this.mensajeError = '';
-      this.router.navigate(['/inicio']); // o la ruta que quieras después del login
+      this.router.navigate(['/inicio']);
     },
     error: (error) => {
       if (error.status === 401) {

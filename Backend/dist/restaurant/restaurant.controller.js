@@ -72,6 +72,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "create", null);
 __decorate([
+    (0, common_2.UseGuards)(auth_middleware_1.AuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

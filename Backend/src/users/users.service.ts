@@ -7,6 +7,8 @@ import { JwtService } from 'src/jwt/jwt.service';
 import * as dayjs from 'dayjs';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { permisosPorRol } from 'src/role/role.permissions';
+import { RoleEntity } from 'src/entities/role.entity';
 
 @Injectable()
 export class UsersService {
@@ -14,6 +16,8 @@ export class UsersService {
     @InjectRepository(UserEntity)
     private readonly repository: Repository<UserEntity>,
     private readonly jwtService: JwtService,
+    @InjectRepository(RoleEntity)
+    private readonly roleRepository: Repository<RoleEntity>
   ) {}
 
   async register(body: RegisterDTO) {
@@ -23,15 +27,19 @@ export class UsersService {
         throw new HttpException('El email ya está registrado', 409);
       }
 
-      const existingUser = await this.repository.findOne({ where: { email: body.email } });
-      if (existingUser) {
-        throw new HttpException('El email ya está en uso', 409);
+      // Buscamos el rol para saber su nombre y permisos
+      const role = await this.roleRepository.findOne({ where: { id: body.roleId } });
+      if (!role) {
+        throw new HttpException('Rol inválido', 400);
       }
+
+      const permisosAsignados = permisosPorRol[role.name] || [];
 
       const user = this.repository.create({
         email: body.email,
         password: hashSync(body.password, 10),
-        role: { id: body.roleId },
+        role: role,
+        permissions: permisosAsignados,  // asignamos permisos aquí
       });
 
       await this.repository.save(user);
@@ -43,6 +51,7 @@ export class UsersService {
         : new HttpException('Error de creación', 500);
     }
   }
+
 
   async login(body: LoginDTO) {
     const user = await this.findByEmail(body.email);
