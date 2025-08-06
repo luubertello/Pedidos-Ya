@@ -20,6 +20,7 @@ export class UsersService {
     private readonly roleRepository: Repository<RoleEntity>
   ) {}
 
+  // Crear nuevo usuario
   async register(body: RegisterDTO) {
     try {
       const existingEmail = await this.repository.findOne({ where: { email: body.email } });
@@ -39,7 +40,7 @@ export class UsersService {
         email: body.email,
         password: hashSync(body.password, 10),
         role: role,
-        permissions: permisosAsignados,  // asignamos permisos aquí
+        permissions: permisosAsignados,  // asignamos permisos
       });
 
       await this.repository.save(user);
@@ -53,6 +54,7 @@ export class UsersService {
   }
 
 
+  // Iniciar sesion
   async login(body: LoginDTO) {
     const user = await this.findByEmail(body.email);
     if (!user) {
@@ -70,6 +72,7 @@ export class UsersService {
     };
   }
 
+  // Buscar por email
   async findByEmail(email: string): Promise<UserEntity> {
     const user = await this.repository.findOneBy({ email });
     if (!user) {
@@ -78,6 +81,7 @@ export class UsersService {
     return user;
   }
 
+  // Reiniciar token si expiro
   async refreshToken(refreshToken: string): Promise<{ accessToken: string; refreshToken: string }> {
     try {
       const payload = this.jwtService.getPayload(refreshToken, 'refresh');
@@ -94,6 +98,7 @@ export class UsersService {
     }
   }
 
+  // Obtener todos los usuarios
   async getUsers(page = 1, quantity = 10) {
     const pageNum = Number(page) || 1;
     const qty = Number(quantity) || 10;
