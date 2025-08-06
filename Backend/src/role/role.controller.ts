@@ -8,6 +8,7 @@ import { AssignPermissionsDto, CreateRoleDto } from './role.DTO';
 export class RolesController {
   constructor(private readonly roleService: RoleService) {}
 
+  // Crea un rol
   @UseGuards(AuthGuard)
   @Permissions('roles_create')
   @Post()
@@ -15,9 +16,10 @@ export class RolesController {
     return this.roleService.create(dto);
   }
 
+  // Reemplaza los permisos del rol
   @UseGuards(AuthGuard)
   @Permissions('roles_assign_permissions')
-  @Put(':name/set-permissions') // Reemplaza los permisos del rol
+  @Put(':name/set-permissions')
   async setPermissions(
     @Param('name') name: string,
     @Body() dto: AssignPermissionsDto,
@@ -25,9 +27,10 @@ export class RolesController {
     return this.roleService.setPermissions(name, dto);
   }
 
+  // Agrega permisos al rol
   @UseGuards(AuthGuard)
   @Permissions('roles_assign_permissions')
-  @Put(':name/add-permissions') // Agrega permisos nuevos al rol
+  @Put(':name/add-permissions') 
   async addPermissions(
     @Param('name') name: string,
     @Body() dto: AssignPermissionsDto,
@@ -35,6 +38,8 @@ export class RolesController {
     return this.roleService.addPermissions(name, dto);
   }
 
+  // Busca todos los roles
+  @UseGuards(AuthGuard)
   @Get('roles')
     async getRoles(
       @Query('page') page = 1,

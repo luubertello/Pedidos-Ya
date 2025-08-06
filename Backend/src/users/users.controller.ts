@@ -27,6 +27,7 @@ export class UsersController {
     return this.service.getUsers(page, quantity);
   }
 
+  // Busca mi usuario
   @UseGuards(AuthGuard)
   @Get('me')
   getProfile(@Req() req: RequestWithUser) {
@@ -35,18 +36,22 @@ export class UsersController {
     };
   }
 
+  // Iniciar sesion
+  @UseGuards(AuthGuard)
   @Post('login')
   loginUser(@Body() body: LoginDTO) {
     console.log('Login request body:', body);
     return this.service.login(body);
   }
 
+  // Registrar nuevo usuario
+  @UseGuards(AuthGuard)
   @Post('register')
   registerUser(@Body() body: RegisterDTO) {
     return this.service.register(body);
   }
 
-  @UseGuards(AuthGuard)
+  // Reinicia el token de acceso
   @Get('refresh-token')
   refreshToken(@Req() request: Request) {
     return this.service.refreshToken(
